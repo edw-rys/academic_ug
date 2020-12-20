@@ -32,7 +32,7 @@ class TeachersDataTable extends DataTable
      */
     public function query(User $model): Builder
     {
-        return getUsersByRole('teacher');//$model->where('status', 'active');
+        return $model->where('status','active');//getUsersByRole('teacher');//$model->where('status', 'active');
     }
 
     /**

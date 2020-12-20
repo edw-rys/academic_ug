@@ -91,3 +91,5 @@ INSERT INTO `class_subject` (`id`, `name`, `course_subject_id`, `status`, `creat
 (NULL, 'Clase número 5 00', '13', 'active', '2020-12-19 22:59:35', NULL),
 (NULL, 'Clase número 5 ad', '13', 'active', '2020-12-19 22:59:35', NULL);
 
+-- roles permissions
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('1', '1');

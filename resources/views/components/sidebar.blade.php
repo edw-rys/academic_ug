@@ -10,6 +10,7 @@
       @foreach( config('app_academic.sections_menu') as $section_menu)
         <li class="menu-header">{{ $section_menu->header }}</li>
         @foreach( $section_menu->menus as $menu)
+          @if(!$menu->has_permissions || have_permission($menu->permissions,auth()->user()->id))
           <li class="nav-item dropdown active">
             <a href="@if($menu->route) {{route($menu->route)}} @endif" class="nav-link @if(!$menu->route) has-dropdown @endif">
               <i class="{{ $menu->icon }}"></i>
@@ -17,12 +18,15 @@
             @if(isset($menu->submenus))
               <ul class="dropdown-menu">
                 @foreach( $menu->submenus as $submenu)
+                @if(!$submenu->has_permissions || have_permission($submenu->permissions,auth()->user()->id))
                   <li><a class="nav-link" href="@if($submenu->route) {{route($submenu->route)}} @else #! @endif">{{ $submenu->title }}</a></li>
+                @endif
                 @endforeach
                 <!-- <li class="active"><a class="nav-link" href="index.html">Ecommerce Dashboard</a></li> -->
               </ul>
             @endif
           </li>
+          @endif
         @endforeach
       @endforeach
       </ul>
