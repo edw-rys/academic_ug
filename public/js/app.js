@@ -108,15 +108,8 @@
 
             if (opt.messagePosition == "toastr") {
                 //$.showToastr(msg, type, toastrOptions);
-                $.toast({
-                    heading: headingClasses[type],
-                    text: msg,
-                    position: 'top-right',
-                    loaderBg:'#ff6849',
-                    icon: iconClasses[type],
-                    hideAfter: 3500
-
-                });
+                // toastr.warning(msg);
+                
             }
             else {
                 var ele = $(opt.container).find("#alert");

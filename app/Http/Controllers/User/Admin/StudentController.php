@@ -5,20 +5,20 @@ namespace App\Http\Controllers\User\Admin;
 use App\DataTables\StudentsDataTable;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\User\DestroyUserRequest;
+use App\Http\Requests\Admin\User\RestoreUserRequest;
 use App\Http\Requests\Admin\User\StoreUserRequest;
 use App\Http\Requests\Admin\User\UpdateUserRequest;
 use App\Models\User;
+use App\Models\Role;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
 {
 
-     /**
+    /**
      * Constructor
      *
-     * @param EmployeeService $employeeService
-     * @param EmployeeRepository $employeeRepository
      */
     public function __construct()
     {
@@ -99,7 +99,12 @@ class StudentController extends Controller
             'created_at' => Carbon::now(),
             'password' => bcrypt($request->input('email'))
         ]);
-        User::create($request->all());
+
+        $role = Role::where('name','student')->first();
+
+        $user = User::create($request->all());
+
+        $user->roles()->attach($role);
 
         return response()->json([
             'message' => 'Creado',
@@ -169,11 +174,11 @@ class StudentController extends Controller
      * @param DestroyUserRequest $request
      * @return JsonResponse
      */
-    public function destroy(DestroyUserRequest $request){
+    public function destroy(DestroyUserRequest $request, $id){
 
         canAccessTo($this->permissions->delete);
 
-        $user = User::find($request->input('id'));
+        $user = User::find($id);
         
         if($user == null){
             return response()->json([
@@ -185,8 +190,37 @@ class StudentController extends Controller
         $user->save();
 
         return response()->json([
-            'message' => 'Editado',
-            'action'  => 'destroy'
+            'message' => 'Eliminado',
+            'action'  => 'destroy',
+            'status'  => 'success'
+        ]);
+    }
+
+    /**
+     * Destroy an item
+     *
+     * @param RestoreUserRequest $request
+     * @return JsonResponse
+     */
+    public function restore(RestoreUserRequest $request){
+
+        canAccessTo($this->permissions->delete);
+
+        $user = User::find($request->input('id'));
+        
+        if($user == null){
+            return response()->json([
+                'message'    => 'Usuario no encontrado'
+            ],404);
+        }
+
+        $user->status = 'active';
+        $user->save();
+
+        return response()->json([
+            'message' => 'Restaurado',
+            'action'  => 'restore',
+            'status'  => 'success'
         ]);
     }
 }

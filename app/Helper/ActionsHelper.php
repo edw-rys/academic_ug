@@ -75,7 +75,7 @@ if (! function_exists('dropdown_action')) {
             }
 
             if ($auth_id !== $id && ! $protected && have_permission('delete_'.$action,  auth()->user()->id)) {
-                $dropdown .= delete_action($route . '.destroy', $id);
+                $dropdown .= delete_action($route . '.destroy', $id, $action);
             }
         }
         // Inactive
@@ -85,13 +85,13 @@ if (! function_exists('dropdown_action')) {
             }
 
             if (have_permission('delete_'.$action,  auth()->user()->id)) {
-                $dropdown .= delete_action($route . '.destroy', $id);
+                $dropdown .= delete_action($route . '.destroy', $id, $action);
             }
         }
         // Deleted
         elseif ($status === 'deleted') {
-            if (have_permission($action.'restore'.$action,  auth()->user()->id)) {
-                $dropdown .= restore_action($route . '.restore', $id);
+            if (have_permission('restore_'.$action,  auth()->user()->id)) {
+                $dropdown .= restore_action($route . '.restore', $id,  $action);
             }
         }
 
@@ -178,7 +178,7 @@ if (! function_exists('delete_action')) {
      * @param string $block
      * @return string
      */
-    function delete_action(string $route, $id, string $name = '', string $block = 'd-inline'): string
+    function delete_action(string $route, $id, string $datatable_id, string $name = '',string $block = 'd-inline'): string
     {
         if (! route_exists($route)) {
             return '';
@@ -188,7 +188,7 @@ if (! function_exists('delete_action')) {
             $name = 'Eliminar';
         }
 
-        return '<form action="' . route($route, $id) . '" method="POST" data-delete="true" class="' . $block . '">' .
+        return '<form action="' . route($route, $id) . '" method="POST" id="form-delete-'.$id.'" data-delete="true" class="' . $block . '" onsubmit="deleteData(event, \''.route($route, $id).'\', \''.$datatable_id.'\', '.$id.')">' .
             '<input type="hidden" name="id" value="' . $id . '">' .
             '<input type="hidden" name="_method" value="delete">' .
             '<input type="hidden" name="_token" value="' . csrf_token() . '">' .
@@ -293,7 +293,7 @@ if (! function_exists('restore_action')) {
      * @param string $block
      * @return string
      */
-    function restore_action(string $route, $id, string $name = '', string $block = ''): string
+    function restore_action(string $route, $id, $datatable_id,string $name = '', string $block = ''): string
     {
         if (! route_exists($route)) {
             return '';
@@ -303,7 +303,7 @@ if (! function_exists('restore_action')) {
             $name = 'Restaurar';
         }
 
-        return '<form action="' . route($route) . '" method="POST" data-restore="true" class="' . $block . '">' .
+        return '<form action="' . route($route) . '" id="form-restore-'.$id.'" method="POST" data-restore="true" class="' . $block . '" onsubmit="restoreData(event, \''.route($route, $id).'\', \''.$datatable_id.'\', '.$id.')">' .
             '<input type="hidden" name="id" value="' . $id . '">' .
             '<input type="hidden" name="_token" value="' . csrf_token() . '">' .
             '<div class="dropdown-divider"></div>' .

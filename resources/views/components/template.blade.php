@@ -136,7 +136,56 @@
   <script>
     $(document).ready(function() {
       $('.select2').select2();
+      $.toast = toastr;
+
     });
+
+
+    function deleteData(event, url, dt_id, id) {
+      if(!confirm('¿Está seguro que desea eliminar la información?')){
+        return ;
+      }
+      event.preventDefault();
+      $.easyAjax({
+          type: 'DELETE',
+          url: url,
+          data: $('#form-delete-'+id).serialize(),
+          success: function (response) {
+              if (response.status == "success") {
+                  // $.easyBlockUI('#leads-table');
+                  window.LaravelDataTables[dt_id+"-table"].draw();
+                  if(toastr){
+                    toastr.success(response.message)
+                  }
+                  // window.location.reload();
+                  // $.easyUnblockUI('#leads-table');
+              }
+          }
+      });
+    }
+    function restoreData(event, url, dt_id, id) {
+      if(!confirm('¿Está seguro que desea restaurar la información?')){
+        return ;
+      }
+      event.preventDefault();
+      console.log($('#form-restore-'+id).serialize());
+      $.easyAjax({
+          type: 'POST',
+          url: url,
+          data: $('#form-restore-'+id).serialize(),
+          success: function (response) {
+              if (response.status == "success") {
+                  // $.easyBlockUI('#leads-table');
+                  window.LaravelDataTables[dt_id+"-table"].draw();
+                  if(toastr){
+                    toastr.success(response.message)
+                  }
+                  // window.location.reload();
+                  // $.easyUnblockUI('#leads-table');
+              }
+          }
+      });
+    }
   </script>
 </body>
 </html>

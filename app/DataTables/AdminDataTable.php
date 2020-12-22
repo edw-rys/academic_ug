@@ -13,7 +13,7 @@ class AdminDataTable extends DataTable
     use DataTableBase;
 
     private $action = 'admin';
-    private $route  = 'admin.users';
+    private $route  = 'admin.admin';
     public $filters;
 
     /**

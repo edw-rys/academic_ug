@@ -99,7 +99,7 @@ class StudentsDataTable extends DataTable
                 return status($query->status);
             })
             ->addColumn('actions', static function ($query) use ($action, $route) {
-                return dropdown_action($query->id, $query->status, $action, $route, $query->protected ?? 0);
+                return dropdown_action($query->id, $query->status, $action, $route,$query->protected ?? 0);
             })
             ->escapeColumns([]);
     }
