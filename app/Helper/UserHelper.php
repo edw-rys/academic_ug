@@ -43,7 +43,7 @@ if (! function_exists('getUsersByRole')) {
         if($usersRole !== null){
             $data = array_map('getIdByRole', $usersRole->toArray());
           
-            return User::whereIn('id', $data);
+            return User::whereIn('id', $data)->orderBy('id','desc');
 
         }
         return null;

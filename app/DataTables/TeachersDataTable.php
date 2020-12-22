@@ -48,6 +48,7 @@ class TeachersDataTable extends DataTable
             Column::make('last_name')->title('Apellidos')->className('text-center'),
             Column::make('email')->title('Correo')->className('text-center'),
             Column::make('status')->title('Estado')->className('text-center'),
+            Column::computed('actions')->title('Acción')->className('text-center noExport')->width(100)->searchable(false)->printable(false)->exportable(false)
         ] ;
     }
 
@@ -96,6 +97,9 @@ class TeachersDataTable extends DataTable
             })
             ->editColumn('status', static function ($query) {
                 return status($query->status);
+            })
+            ->addColumn('actions', static function ($query) use ($action, $route) {
+                return dropdown_action($query->id, $query->status, $action, $route,$query->protected ?? 0);
             })
             ->escapeColumns([]);
     }
