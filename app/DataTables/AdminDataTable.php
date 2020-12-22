@@ -47,6 +47,7 @@ class AdminDataTable extends DataTable
             Column::make('last_name')->title('Apellidos')->className('text-center'),
             Column::make('email')->title('Correo')->className('text-center'),
             Column::make('status')->title('Estado')->className('text-center'),
+            Column::computed('actions')->title('Acción')->className('text-center noExport')->width(100)->searchable(false)->printable(false)->exportable(false)
         ] ;
     }
 
