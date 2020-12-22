@@ -1,5 +1,5 @@
 <?php
-
+use Illuminate\Contracts\Routing\UrlGenerator;
 
 if (! function_exists('route_exists')) {
     /**

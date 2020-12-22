@@ -200,15 +200,15 @@ trait DataTableBase
         $buttons = [];
         // dd(route_exists($this->route . '.create'));
         // Create item
-        if (route_exists($this->route . '.create') && allows_permission('crear_' .$this->action)) {
+        if (route_exists($this->route . '.create') && have_permission('create_' .$this->action)) {
             $buttons ['addButton'] = [
-                'text'          => trans('global.datatables_icons.add') . ' ' . trans('global.datatables.add'),
+                'text'          => '<i class="fas fa-plus"></i>' . ' ' . 'Agregar',
                 'className'     => 'btn-success rounded mr-3',
-                'action'        => 'function(e, dt, node, config) { window.location = "' . route($this->route . '.create') . '"; }',
+                'action'        => 'function(e, dt, node, config) { $.ajaxModal("#modal-component","'.route($this->route . '.create').'");}',
                 'attr'          => [
                     'data-toggle'       => 'tooltip',
-                    'title'             => trans('global.datatables.add_new'),
-                    'aria-label'        => trans('global.datatables.add_new')
+                    'title'             => 'Nuevo',
+                    'aria-label'        => 'Nuevo'
                 ]
             ];
         }
@@ -218,23 +218,23 @@ trait DataTableBase
         $buttons ['colvis'] = [
             'extend'        => 'colvis',
             'className'     => 'btn-default rounded mx-2',
-            'text'          => trans('global.datatables_icons.colvis'),
+            'text'          => '<i class="far fa-eye"></i>',
             'attr'          => [
                 'data-toggle'       => 'tooltip',
-                'title'             => trans('global.datatables.colvis'),
-                'aria-label'        => trans('global.datatables.colvis')
+                'title'             => 'Mostrar',
+                'aria-label'        => 'Mostrar'
             ]
         ];
 
         // Refresh items
         $buttons ['refreshButton'] = [
-            'text'          => trans('global.datatables_icons.refresh'),
+            'text'          => '<i class="fas fa-redo-alt"></i>',
             'className'     => 'btn-default rounded mx-1',
             'action'        => 'function (e, dt, node, config) { dt.ajax.reload(null, false); }',
             'attr'          => [
                 'data-toggle'       => 'tooltip',
-                'title'             => trans('global.datatables.refresh'),
-                'aria-label'        => trans('global.datatables.refresh')
+                'title'             => 'Recargar',
+                'aria-label'        => 'Recargar'
             ]
         ];
 

@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-	return redirect()->route('auth.login.show');
+    return redirect()->route('auth.login.show');
     //return view('welcome');
 });
 
@@ -22,29 +22,21 @@ Route::get('login', 'LoginController@loginShow')->name('auth.login.show')->middl
 Route::post('login', 'LoginController@login')->name('auth.login')->middleware(['logged_in']);
 
 //RUTA USUARIO
-Route::middleware(['IsAuthenticated'])->group(function(){
-    
-    Route::namespace('User')->group(function(){
-        Route::get('user/dashboard','DashboardController@index' )->name('user.dashboard.index');
+Route::middleware(['IsAuthenticated'])->group(function () {
+
+    Route::namespace('User')->group(function () {
+        Route::get('user/dashboard', 'DashboardController@index')->name('user.dashboard.index');
 
         // Student Route
-        Route::group(['prefix'=> 'user/student','middleware' => ['role:student']],function(){
-        	Route::get('subjects', 'StudentController@index')->name('user.student.subject');
+        Route::group(['prefix' => 'user/student', 'middleware' => ['role:student']], function () {
+            Route::get('subjects', 'StudentController@index')->name('user.student.subject');
             Route::get('class/{period_id}', 'StudentController@classSubject')->name('user.student.class');
-        	Route::post('class/comment', 'StudentController@storeComment')->name('user.student.class.comment');
-        	Route::get('class/show/{id}', 'StudentController@showClass')->name('user.student.class.show');
+            Route::post('class/comment', 'StudentController@storeComment')->name('user.student.class.comment');
+            Route::get('class/show/{id}', 'StudentController@showClass')->name('user.student.class.show');
         });
-
-        // Admin Route
-        Route::group(['prefix'=> 'user','middleware' => ['role:admin']],function(){
-            Route::get('students','AdminController@index' )->name('user.panel.index');
-           
-        });
-
     });
-    Route::get('user/logout','LoginController@logout')->name('user.logout');
-}
-);
+    Route::get('user/logout', 'LoginController@logout')->name('user.logout');
+});
 /*
 roles
 > php artisan tinker

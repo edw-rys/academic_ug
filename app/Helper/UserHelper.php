@@ -58,8 +58,11 @@ if (!function_exists('have_permission')) {
      * @param $user_id
      * @return bool
      */
-    function have_permission($permission_system, $user_id): bool
-    {
+    function have_permission($permission_system, $user_id = null): bool
+    {   
+        if($user_id == null){
+            $user_id = auth()->user()->id;
+        }
         // Get roles
         $roles = RoleUser::where('user_id', $user_id)->get();
         if (empty($roles)) {

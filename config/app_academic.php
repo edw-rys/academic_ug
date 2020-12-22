@@ -28,20 +28,46 @@ return [
 		    		]
 		    	],
 		    	(object) [
-		    		'title'			=> 'Gestiòn',
+		    		'title'			=> 'Gestión Usuarios',
 		    		'icon'			=> 'fas fa-fire',
 		    		'has_permissions' 	=> true,
 		    		'permissions' 	=> 'admin_users_menu',
 		    		'route'			=> false,
 		    		'submenus'		=> [
 		    			(object) [
-							'title'			=> 'Usuarios',
+							'title'			=> 'Administradores',
 		    				'has_permissions' 	=> true,
 		    				'permissions' 	=> false,
-		    				'route'			=> 'user.panel.index',
+		    				'route'			=> 'admin.admin.index',
+						],
+						(object) [
+							'title'			=> 'Profesores',
+		    				'has_permissions' 	=> true,
+		    				'permissions' 	=> false,
+		    				'route'			=> 'admin.teachers.index',
+						],
+						(object) [
+							'title'			=> 'Estudiantes',
+		    				'has_permissions' 	=> true,
+		    				'permissions' 	=> false,
+		    				'route'			=> 'admin.students.index',
 		    			],
 		    		]
-		    	]
+				],
+				(object) [
+					'title'			=> 'Gestión Aulas',
+					'icon'			=> 'fas fa-fire',
+					'has_permissions' 	=> true,
+					'permissions' 	=> 'admin_course_menu',
+					'route'			=> 'user.admin.course.index',
+				],
+				(object) [
+					'title'			=> 'Gestión Asignaturas',
+					'icon'			=> 'fas fa-fire',
+					'has_permissions' 	=> true,
+					'permissions' 	=> 'admin_subject_menu',
+					'route'			=> 'user.admin.subject.index',
+				]
 		    ]
 		]
 	]

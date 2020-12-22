@@ -16,7 +16,7 @@ class IsAuthenticated
     public function handle($request, Closure $next)
     {
         if(auth()->user() === null){
-            return redirec()->route('auth.login.show');
+            return redirect()->route('auth.login.show');
         }
         return $next($request);
     }

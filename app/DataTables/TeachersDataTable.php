@@ -32,7 +32,8 @@ class TeachersDataTable extends DataTable
      */
     public function query(User $model): Builder
     {
-        return $model->where('status','active');//getUsersByRole('teacher');//$model->where('status', 'active');
+        return getUsersByRole('teacher');//$model->where('status', 'active');
+        // return $model->where('status','active');//getUsersByRole('teacher');//$model->where('status', 'active');
     }
 
     /**
@@ -94,7 +95,7 @@ class TeachersDataTable extends DataTable
                 return $query->email;
             })
             ->editColumn('status', static function ($query) {
-                return $query->status;
+                return status($query->status);
             })
             ->escapeColumns([]);
     }

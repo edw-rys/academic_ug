@@ -70,7 +70,7 @@
             redirect: false,
             data:  $('#form-'+id).serialize(),
             success: function (response) {
-                toastr.success(response.message)
+                toastr.success(response.message);
             },
             error: function(error){
                 toastr.warning(error.responseJSON.message)

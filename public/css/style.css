@@ -7,8 +7,8 @@
  *
  * @package	Stisla
  * @version	2.3.0
- * @author 	Muhamad Nauval Azhar
- * @url 	https://getstisla.com
+ * @author 	unknown
+ * @url 	https://github.com/edw-rys
  *
  */
 /**
@@ -3056,4 +3056,8 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
   line-height: 160px;
   font-size: 2em;
   text-shadow: 0 0 0.5em black;
+}
+
+.err-fields{
+  color: #f7311b;
 }

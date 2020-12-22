@@ -196,7 +196,7 @@
                     if (typeof opt.success == "function") {
                         opt.success(response);
                     }
-                }
+                },
             });
 
         function handleFail(response) {
@@ -419,9 +419,10 @@
             remote: url,
             show: true
         });
-
         // Trigger to do stuff with form loaded in modal
         $(document).trigger("ajaxPageLoad");
+
+        
 
         // Call onload method if it was passed in function call
         if (typeof onLoad != "undefined") {
@@ -433,6 +434,19 @@
             $(this).find('.modal-body').html('Loading...');
             $(this).find('.modal-footer').html('<button type="button" data-dismiss="modal" class="btn dark btn-outline">Cancel</button>');
             $(this).data('bs.modal', null);
+        });
+
+        $.easyAjax({
+            url: url,
+            type: "GET",
+            // redirect: false,
+            // data:  {_token: '{{ csrf_token() }}'},
+            success: function (response) {
+				$('#modal-body').html(response);
+            },
+            complete : function (response) {
+				$('#modal-body').html(response.responseText);
+            },
         });
         
     };
