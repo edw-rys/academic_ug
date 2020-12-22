@@ -3061,3 +3061,34 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 .err-fields{
   color: #f7311b;
 }
+
+.datepicker {
+    font-size: 12px;
+}
+.datepicker table tr td.disabled,
+.datepicker table tr td.disabled:hover {
+    cursor: not-allowed;
+}
+
+
+.datepicker-dropdown{
+  z-index: 9999 !important;
+}
+
+.datepicker {
+  border-radius: 8px;
+}
+.datepicker table tr td.today,.datepicker table tr td.today.disabled,
+.datepicker table tr td.today.disabled:hover,
+.datepicker table tr td.today:hover{
+  background:#ff6849;color:#fff
+}
+.datepicker table tr td.active,.datepicker table tr td.active.disabled,
+.datepicker table tr td.active.disabled:hover,.datepicker table tr td.active:hover{
+  background:#03a9f3;color:#fff
+}
+.editable-table+input.error{
+  border:1px solid #fc544b;outline:0;outline-offset:0
+}
+#editable-datatable_wrapper+input:focus,.editable-table+input,.editable-table+input:focus{
+  border:1px solid #03a9f3!important;outline:0!important;outline-offset:0!important}

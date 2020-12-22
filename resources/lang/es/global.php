@@ -22,6 +22,8 @@ return [
         'paid'              => 'Pagado',
         'finished'          => 'Finalizado',
         'finish'            => 'Finalizado',
+        'finalized'         => 'Finalizado',
+        'pending'         => 'Pendiente',
         'process_error'     => 'No se ha podido completar la compra.',
     ],
 ];

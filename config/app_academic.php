@@ -55,20 +55,50 @@ return [
 		    		]
 				],
 				(object) [
-					'title'			=> 'Gestión Aulas',
+					'title'			=> 'Gestión Aula',
 					'icon'			=> 'fas fa-fire',
 					'has_permissions' 	=> true,
 					'permissions' 	=> 'admin_course_menu',
-					'route'			=> 'user.admin.course.index',
+					'route'			=> false,
+					'submenus'		=> [
+		    			(object) [
+							'title'			=> 'Gestión Asignaturas',
+							'has_permissions' 	=> true,
+							'permissions' 	=> 'access_subject',
+							'route'			=> 'admin.subject.index',
+						],
+						(object) [
+							'title'			=> 'Gestión Curso',
+							'has_permissions' 	=> true,
+							'permissions' 	=> 'access_course',
+							'route'			=> 'admin.course.index',
+						],
+						(object) [
+							'title'			=> 'Gestión Periodos',
+							'has_permissions' 	=> true,
+							'permissions' 	=> 'access_period',
+							'route'			=> 'admin.period.index',
+						],
+						(object) [
+							'title'			=> 'Asignación Profesor',
+							'has_permissions' 	=> true,
+							'permissions' 	=> 'access_course_subject',
+							'route'			=> 'admin.course_subject.index',
+						],
+						(object) [
+							'title'			=> 'Matriculación',
+							'has_permissions' 	=> true,
+							'permissions' 	=> 'access_registration',
+							'route'			=> 'admin.course_student.index',
+		    			],
+		    		]
 				],
-				(object) [
-					'title'			=> 'Gestión Asignaturas',
-					'icon'			=> 'fas fa-fire',
-					'has_permissions' 	=> true,
-					'permissions' 	=> 'admin_subject_menu',
-					'route'			=> 'user.admin.subject.index',
-				]
 		    ]
 		]
+	],
+	'setting' 	=> [
+		'date_format'	=> 'd-m-Y',
+		'date_format_show'	=> 'd/m/Y',
+		'date_picker'	=> 'dd-mm-yyyy'
 	]
 ];

@@ -17,8 +17,19 @@ INSERT INTO `course_subject` (`id`, `teacher_id`, `course_id`, `period_id`, `sub
 (NULL, '3', '2', '12', '5', 'active', '2020-12-19 19:55:56', NULL);
 
 
-INSERT INTO `course_student` (`id`, `student_id`, `course_subject_id`, `status`, `created_at`, `updated_at`) VALUES (NULL, '3', '1', 'active', NULL, NULL), (NULL, '3', '2', 'active', NULL, NULL), (NULL, '3', '4', 'active', NULL, NULL), (NULL, '3', '5', 'active', NULL, NULL), (NULL, '3', '6', 'active', NULL, NULL), (NULL, '3', '7', 'active', NULL, NULL), (NULL, '3', '8', 'active', NULL, NULL), (NULL, '3', '9', 'active', NULL, NULL), (NULL, '3', '10', 'active', NULL, NULL), (NULL, '3', '11', 'active', NULL, NULL), (NULL, '3', '12', 'active', NULL, NULL), (NULL, '3', '13', 'active', NULL, NULL) ;
-
+INSERT INTO `course_student` (`id`,`period_id`, `student_id`, `course_subject_id`, `status`, `created_at`, `updated_at`) VALUES 
+(1, '2','2', '1', 'active', NULL, NULL), 
+(2, '2','2', '2', 'active', NULL, NULL), 
+(3, '2','2', '4', 'active', NULL, NULL), 
+(4, '2','2', '5', 'active', NULL, NULL), 
+(5, '2','2', '6', 'active', NULL, NULL), 
+(6, '2','2', '7', 'active', NULL, NULL), 
+(7,  '12','2', '8', 'active', NULL, NULL), 
+(8,  '12','2', '9', 'active', NULL, NULL), 
+(9,  '12','2', '10', 'active', NULL, NULL),
+(10, '12','2', '11', 'active', NULL, NULL), 
+(11, '12','2', '12', 'active', NULL, NULL), 
+(12, '12','2', '13', 'active', NULL, NULL) ;
 
 -- Class subject
 
@@ -152,3 +163,26 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 ('24', '7'),
 ('25', '7'),
 ('26', '7');
+
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES 
+(NULL, 'access_subject', 'web', '2020-10-04 10:09:43', NULL), 
+(NULL, 'access_course', 'web', '2020-09-23 11:00:08', NULL), (NULL, 'access_period', 'web', '2020-10-18 10:58:24', NULL), (NULL, 'admin_course_menu', 'web', '2020-09-29 11:02:02', NULL);
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('27', '3'), ('28', '3'), ('29', '3'), ('30', '3');
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'create_period', 'web', '2020-10-04 10:09:43', NULL), (NULL, 'edit_period', 'web', '2020-11-09 09:07:21', NULL), (NULL, 'active_period', 'web', '2020-10-27 17:33:04', NULL);
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'finalize_period', 'web', '2020-10-04 10:09:43', NULL);
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('31', '3'), ('32', '3'), ('33', '3');
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('34', '3');
+
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'access_registration', 'web', '2020-10-26 23:09:33', NULL), (NULL, 'access_course_subject', 'web', '2020-09-23 11:00:08', NULL), (NULL, 'create_course_subject', 'web', '2020-10-18 10:58:24', NULL), (NULL, 'delete_course_subject', 'web', '2020-10-27 17:33:04', NULL);
+
+
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'access_course_student', 'web', '2020-12-02 14:42:01', NULL), (NULL, 'create_course_student', 'web', '2020-12-15 14:42:01', NULL);
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('39', '3'), ('40', '3');
+

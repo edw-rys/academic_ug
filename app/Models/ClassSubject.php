@@ -17,6 +17,9 @@ class ClassSubject extends Model
     protected $table = 'class_subject';
     public function comment()
     {
-        return $this->hasOne(CommentStudentClass::class, 'class_id');
+        return $this->hasOne(CommentStudentClass::class, 'class_id')->where('student_id', auth()->user()->id);
+    }
+    public function comments(){
+        return $this->hasMany( CommentStudentClass::class, 'class_id');
     }
 }

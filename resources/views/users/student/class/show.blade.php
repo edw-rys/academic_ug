@@ -29,8 +29,11 @@
                                         <div class="hidden">
                                         @dump($class_subject->comment)
                                         </div>
-                                        <textarea class="form-control" name="comment" placeholder="¿Què tal estuvo la clase?" style="min-height: 118px">{{ $class_subject->comment ? $class_subject->comment->comment : '' }}</textarea>
-                                        
+                                        @if ($class_subject->comment == null)
+                                            <textarea class="form-control" name="comment" placeholder="¿Què tal estuvo la clase?" style="min-height: 118px">{{ $class_subject->comment ? $class_subject->comment->comment : '' }}</textarea>
+                                        @else
+                                            <p class="form-control">{{ $class_subject->comment->comment }}</p>
+                                        @endif
                                     </div>
                                     <div class="flex flex-center">
                                         <button class="btn btn-primary" type="submit">Publicar</button>

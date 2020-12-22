@@ -9,6 +9,7 @@ class CourseStudent extends Model
     protected $fillable = [
         'student_id', 
         'course_subject_id', 
+        'period_id',
         'status', 
         'created_at', 
         'updated_at',
@@ -18,5 +19,8 @@ class CourseStudent extends Model
 
     public function student(){
         return $this->belongsTo(User::class, 'student_id');
+    }
+    public function course_subject(){
+        return $this->belongsTo(CourseSubject::class, 'course_subject_id');
     }
 }

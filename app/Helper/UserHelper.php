@@ -46,7 +46,7 @@ if (! function_exists('getUsersByRole')) {
             return User::whereIn('id', $data)->orderBy('id','desc');
 
         }
-        return null;
+        return User::where('status', 'active');
     }
 }
 

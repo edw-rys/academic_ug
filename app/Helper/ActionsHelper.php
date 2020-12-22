@@ -94,6 +94,16 @@ if (! function_exists('dropdown_action')) {
                 $dropdown .= restore_action($route . '.restore', $id,  $action);
             }
         }
+        if ($status === 'pending') {
+            if (have_permission('active_'.$action,  auth()->user()->id)) {
+                $dropdown .= restore_action($route . '.restore', $id,  $action, 'Habilitar');
+            }
+        }
+        if ($status === 'active' && $action == 'period') {
+            if (have_permission('finalize_'.$action,  auth()->user()->id)) {
+                $dropdown .= restore_action($route . '.finalize', $id,  $action, 'Finalizar');
+            }
+        }
 
         $dropdown .= '</div>';
         return $dropdown;
@@ -154,7 +164,7 @@ if (! function_exists('edit_action')) {
      * @param string|array|Translator $name
      * @return string
      */
-    function edit_action(string $route, int $id, string $name = ''): string
+    function edit_action(string $route, int $id, string $name = '', string $class__=''): string
     {
         if (! route_exists($route)) {
             return '';
@@ -164,7 +174,7 @@ if (! function_exists('edit_action')) {
             $name = 'Editar';
         }
 
-        return '<a href="#!"  onclick="$.ajaxModal(\'#modal-component\',\''.route($route,$id).'\')   " class="dropdown-item"><i class="ik ik-edit mr-2"></i> ' . $name . '</a>';
+        return '<a href="#!"  onclick="$.ajaxModal(\'#modal-component\',\''.route($route,$id).'\')   " class="dropdown-item '.$class__.'"><i class="ik ik-edit mr-2"></i> ' . $name . '</a>';
     }
 }
 

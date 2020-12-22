@@ -137,7 +137,8 @@
             opt.data = data;
         }
 
-
+        Pace.restart();
+        Pace.track(function () {
             $.ajax({
                 type: opt.type,
                 async: opt.async,
@@ -191,7 +192,7 @@
                     }
                 },
             });
-
+        });
         function handleFail(response) {
             if (typeof response.message != "undefined") {
                 showResponseMessage(response.message, "error");

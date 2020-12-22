@@ -1,7 +1,7 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="index.html">Academic UG</a>
+      <a href="{{ route('user.dashboard.index')}}">Academic UG</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <a href="index.html">St</a>
@@ -11,7 +11,7 @@
         <li class="menu-header">{{ $section_menu->header }}</li>
         @foreach( $section_menu->menus as $menu)
           @if(!$menu->has_permissions || have_permission($menu->permissions,auth()->user()->id))
-          <li class="nav-item dropdown active">
+          <li class="nav-item dropdown ">
             <a href="@if($menu->route && route_exists($menu->route)) {{route($menu->route)}} @endif" class="nav-link @if(!$menu->route) has-dropdown @endif">
               <i class="{{ $menu->icon }}"></i>
               <span>{{$menu->title}}</span></a>

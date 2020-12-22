@@ -35,7 +35,7 @@ if (! function_exists('status')) {
         } elseif (in_array($code, allStatuses(), false)) {
             $title  = allStatuses()[$code];
         } else {
-            $title  = setDefaultValue();
+            $title  = '-';
         }
 
         // Status
@@ -83,6 +83,11 @@ if (! function_exists('')) {
             $color  = 'success';
             $icon   = '';
         }
+        elseif ($code === 'finalized') {
+            $color  = 'warning';
+            $icon   = '';
+        }
+        
         // PROCESSED
         elseif ($code === 'processed' || $code === 'paid') {
             $color  = 'dark';
@@ -110,6 +115,10 @@ if (! function_exists('')) {
         }
         if ($code === 'back') {
             $color  = 'warning';
+            $icon   = '';
+        }
+        if ($code === 'pending') {
+            $color  = 'default';
             $icon   = '';
         }
         if ($code === 'canceled_sri' || $code=='canceled_sri') {
@@ -169,6 +178,8 @@ if (! function_exists('allStatuses')) {
             'back'              => trans('global.status-label.back'),
             'unauthorized'      => trans('global.status-label.unauthorized'),
             'canceled_sri'      => trans('global.status-label.canceled_sri'),
+            'finalized'         => trans('global.status-label.finalized'),
+            'pending'         => trans('global.status-label.pending'),
             'authorized'        => trans('global.status-label.authorized'),
         ];
 

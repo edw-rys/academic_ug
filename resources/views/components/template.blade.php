@@ -10,6 +10,7 @@
   <!-- General CSS Files -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" href="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
 
    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css">
    
@@ -142,10 +143,10 @@
 
 
     function deleteData(event, url, dt_id, id) {
+      event.preventDefault();
       if(!confirm('¿Está seguro que desea eliminar la información?')){
         return ;
       }
-      event.preventDefault();
       $.easyAjax({
           type: 'DELETE',
           url: url,
@@ -164,25 +165,28 @@
       });
     }
     function restoreData(event, url, dt_id, id) {
+      event.preventDefault();
       if(!confirm('¿Está seguro que desea restaurar la información?')){
         return ;
       }
-      event.preventDefault();
       console.log($('#form-restore-'+id).serialize());
       $.easyAjax({
           type: 'POST',
           url: url,
           data: $('#form-restore-'+id).serialize(),
           success: function (response) {
-              if (response.status == "success") {
-                  // $.easyBlockUI('#leads-table');
-                  window.LaravelDataTables[dt_id+"-table"].draw();
-                  if(toastr){
-                    toastr.success(response.message)
-                  }
-                  // window.location.reload();
-                  // $.easyUnblockUI('#leads-table');
-              }
+            if (response.status == "success") {
+                // $.easyBlockUI('#leads-table');
+                window.LaravelDataTables[dt_id+"-table"].draw();
+                if(toastr){
+                  toastr.success(response.message)
+                }
+                // window.location.reload();
+                // $.easyUnblockUI('#leads-table');
+            }
+          },
+          error : function(params) {
+            toastr.warning(params.responseJSON.message)
           }
       });
     }
