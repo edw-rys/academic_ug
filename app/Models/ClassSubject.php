@@ -12,6 +12,7 @@ class ClassSubject extends Model
         'status', 
         'created_at', 
         'updated_at',
+        'teacher_id'
     ];
 
     protected $table = 'class_subject';

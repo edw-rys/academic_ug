@@ -4,7 +4,7 @@
       <a href="{{ route('user.dashboard.index')}}">Academic UG</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
-      <a href="index.html">St</a>
+      <a href="{{ route('user.dashboard.index')}}">UG</a>
     </div>
     <ul class="sidebar-menu">
       @foreach( config('app_academic.sections_menu') as $section_menu)

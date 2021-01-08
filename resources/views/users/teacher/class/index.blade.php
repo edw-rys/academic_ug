@@ -19,7 +19,7 @@
 </div>    
 <script>
 	function updateClass(id){
-		var url = "{{ route('student.class.find', ':id')}}";
+		var url = "{{ route('teacher.class.find', ':id')}}";
         url = url.replace(':id', id);
 		$.easyAjax({
             url: url,
@@ -37,7 +37,7 @@
 	}
 
 	function loadClass(class_){
-		var url = "{{ route('student.class.show', ':id')}}";
+		var url = "{{ route('teacher.class.show', ':id')}}";
         url = url.replace(':id', class_.id);
 		return '<div class="card col-md-3" style="margin: 15px;box-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.24);">'+
 				'<a href="'+url+'" style="color: #000;text-decoration:none">'+

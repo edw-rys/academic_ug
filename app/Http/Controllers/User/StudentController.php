@@ -50,14 +50,20 @@ class StudentController extends Controller
 
     public function showClass($id)
     {
+		$data = CourseSubject::with('teacher')
+			->where('id', $id)
+			->first();
+		$teacher_id = $data->teacher->id;
+
     	$data = CourseSubject::with('period')
 			->with('course')
 			->with('teacher')
 			->with('subject')
 			->with('course_student')
 			->has('course_student')
-			->with('class_subject')
-			->with('class_subject.comment')
+			->with(['class_subject'=>function($query) use($teacher_id){
+				$query->with('comment')->where('teacher_id', $teacher_id);
+			}])
 			->where('id', $id)
 			->first();
 		// Get data subject class

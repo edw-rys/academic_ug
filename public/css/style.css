@@ -3092,3 +3092,7 @@ body:not(.sidebar-mini) .sidebar-style-2 .sidebar-menu li.active ul.dropdown-men
 }
 #editable-datatable_wrapper+input:focus,.editable-table+input,.editable-table+input:focus{
   border:1px solid #03a9f3!important;outline:0!important;outline-offset:0!important}
+
+.center{
+  margin: auto;
+}

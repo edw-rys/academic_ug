@@ -186,3 +186,6 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at
 
 INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('39', '3'), ('40', '3');
 
+INSERT INTO `permissions` (`id`, `name`, `guard_name`, `created_at`, `updated_at`) VALUES (NULL, 'show_academic_teacher', 'web', '2020-12-15 15:52:35', NULL);
+
+INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES ('41', '2');

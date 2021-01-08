@@ -17,13 +17,20 @@ class ClassSubject extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedBigInteger('course_subject_id');
+            $table->unsignedBigInteger('teacher_id');
             $table->string('status')->default('active');
             $table->timestamps();
-            //student
+            // course_subject
             $table->foreign('course_subject_id')
                 ->references('id')
                 ->on('course_subject')
                 ->onDelete('cascade');
+            // Teacher id
+            $table->foreign('teacher_id')
+                ->references('id')
+                ->on('users')
+                ->onDelete('cascade');
+
         });
     }
 

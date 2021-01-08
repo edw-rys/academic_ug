@@ -12,8 +12,21 @@ return [
 		    		'permissions' 	=> false,
 		    		'route'			=> 'user.dashboard.index'
 		    	],
-		    	(object) [
-		    		'title'			=> 'Acadèmico',
+		    	
+		    ]
+		],
+		(object) [
+			'header'	=> 'Académico',
+			'menus'	=> [
+				(object) [
+		    		'title'			=> 'Académico',
+		    		'icon'			=> 'fas fa-fire',
+		    		'has_permissions' 	=> true,
+		    		'permissions' 	=> 'show_academic_teacher',
+		    		'route'			=> 'teacher.academic.index'
+				],
+				(object) [
+		    		'title'			=> 'Académico',
 		    		'icon'			=> 'fas fa-fire',
 		    		'has_permissions' 	=> true,
 		    		'permissions' 	=> 'academic_menu',
@@ -23,8 +36,8 @@ return [
 							'title'			=> 'Asignaturas',
 		    				'has_permissions' 	=> true,
 		    				'permissions' 	=> 'show_subject_student',
-		    				'route'			=> 'user.student.subject',
-		    			]
+		    				'route'			=> 'student.subject.index',
+						],
 		    		]
 		    	],
 		    	(object) [
@@ -93,8 +106,9 @@ return [
 		    			],
 		    		]
 				],
-		    ]
-		]
+			],
+			
+		],
 	],
 	'setting' 	=> [
 		'date_format'	=> 'd-m-Y',

@@ -6,7 +6,7 @@
                 @csrf
 
                 <div class="card-header">
-                    <h3>Crear {{ $singular_title ?? 'usuario' }}</h3>
+                    <h3>Asignar {{ 'Estudiante' }}</h3>
                 </div>
 
                 <div class="card-body">
@@ -29,7 +29,7 @@
                         <label for="student_id">Estudiante</label>
                         <select name="student_id" class="select2" id="student_id">
                             @foreach (getUsersByRole('student')->where('status', 'active')->get() as $teacher)
-                                <option value="{{ $teacher->id }}">{{ $teacher->name }}</option>
+                                <option value="{{ $teacher->id }}">{{ $teacher->last_name }} {{ $teacher->name }}</option>
                             @endforeach
                         </select>
                         <p id="err-student_id" class="hidden helper-block err-fields"></p>
@@ -60,7 +60,7 @@
             data: $('#formSave').serialize(), 
             success: function (response) {
                 toastr.success(response.message)
-                document.getElementById("formSave").reset();
+                // document.getElementById("formSave").reset();
                 window.LaravelDataTables["{{$action}}-table"].draw()
             },
             error: function (error) {
