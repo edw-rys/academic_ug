@@ -9,8 +9,14 @@ use App\Models\Period;
 use Illuminate\Http\Request;
 use App\Http\Requests\User\Student\Class_\StoreCommentRequest;
 use App\Models\CommentStudentClass;
+use App\Services\ApiService;
+
 class StudentController extends Controller
 {
+	private $apiService;
+	public function __construct(ApiService $apiService) {
+		$this->apiService = $apiService;
+	}
 	/**
 	 * @return 
 	 */ 
@@ -40,11 +46,6 @@ class StudentController extends Controller
 			->with('course_student')
 			->has('course_student')
 			->get();
-
-
-			//CourseStudent
-//			->where('student_id', auth()->user()->id)
-		// Return view with data
 		return response()->json($data);
     }
 
@@ -62,20 +63,45 @@ class StudentController extends Controller
 			->with('course_student')
 			->has('course_student')
 			->with(['class_subject'=>function($query) use($teacher_id){
-				$query->with('comment')->where('teacher_id', $teacher_id);
+				$query->with(['comment'=>function($query){
+					$query->where('student_id', auth()->user()->id);
+				}])->where('teacher_id', $teacher_id);
 			}])
 			->where('id', $id)
 			->first();
 		// Get data subject class
-
-
+		
 		if($data === null){
 			abort(404);
 		}
+		$negative_percent = 0;
+		$positive_percent = 0;
+		$neutra_percent = 0;
+		foreach ($data->class_subject as $key => $value) {
+			if(isset($value->comment) && $value->comment){
+				// dd($value->comment);
+				$negative_percent += $value->comment->negative;
+				$positive_percent += $value->comment->positive;
+				$neutra_percent += $value->comment->neutral;
+			}
+		}
+		$size = count($data->class_subject);
+		// dd(
+		// 	$size,
+		// 	$negative_percent,
+		// 	$positive_percent,
+		// 	$neutra_percent
+		// );
+		$negative_percent = ( $negative_percent/ $size)*100;
+		$positive_percent = ( $positive_percent/ $size)*100;
+		$neutra_percent =   ( $neutra_percent/ $size)*100;
 		// Return view with data
 		return view('users.student.class.show')
     		->with('data', $data)
-    		->with('percent', rand(0,100));
+			->with('negative_percent', $negative_percent)
+			->with('positive_percent', $positive_percent)
+			->with('neutral_percent', $neutra_percent)
+			;
     }
     /**
      * Store Comment by class and user with student role
@@ -95,14 +121,18 @@ class StudentController extends Controller
     	]);
     	$comment = CommentStudentClass::where('student_id', auth()->user()->id)
     		->where('class_id', $request->input('class_id'))
-    		->first();
+			->first();
+		
+		// Save comment
     	if($comment === null){
-    		CommentStudentClass::create($request->all());
+			$comment = CommentStudentClass::create($request->all());
     	}else{
-    		$comment->comment = $request->input('comment');
+			$comment->comment = $request->input('comment');
     		$comment->save();
-    	}
-
+		}
+		
+		// $res = $this->apiService->sendIdComment($comment->id);
+		// var_dump($res);
     	return response()->json([
     			'message'	=> 'Guardado',
     			'status'	=> 'error'

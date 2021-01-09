@@ -1,0 +1,85 @@
+iNGLÉS
+Verbo modal auxiliar "can" para expresar habilidad.
+Verbo "be able to" para expresar habilidad.
+Verbo "like" seguido de gerundio o infinitivo.
+Adjetivos posesivos.
+Adjetivos comparativos y superlativos.
+Presente progresivo para expresar planes en el futuro.
+Imperativo
+
+
+SS
+Simulación Continua
+Simulación Combinada Discreta-Continua
+Simulación Determinística y/o Estocástica
+Simulación estática y dinámica
+Analisis de los datos
+Probabilidad y estadísitca
+
+SOD
+1.1 Conceptos de hardware: multiprocesadores y multicomputadoras
+1.2 Conceptos de software: SO de redes, SO realmente distribuidos, Sistemas multiprocesador
+1.3 Definición de Sistemas Operativos Distribuidos, ventajas y desventajas
+1.4 Aspectos de Diseño
+1.5 Practica de servicio de acceso remoto servidores de red GNU/Linux o Windows
+1.6 Sistemas Operativos por n capas
+7 Practica de web services servidores de red GNU/Linux o Windows
+2.1 Protocolos de comunicación en la Internet
+Comunicación Cliente Servidor, definición, características
+
+
+SI
+
+SEGURIDAD DE LA INFORMACION
+SEGURIDAD DE LA INFRAESTRUCTURA
+CIBERSEGURIDAD
+SEGURIDAD DE LAS NUEVAS TECNOLOGIAS
+SEGURIDAD DE APLICACIONES
+TECNOLOGIAS DE SEGURIDAD
+NORMAS NACIONALES E INTERNACIONALES DE SEGURIDAD
+
+ISO
+Conoce información sobre los conceptos de la Ingeniería de software.
+Investiga sobre los modelos de construcción de software
+Conoce los conceptos y las técnicas de factibilidad para la gestión de un proyecto de software
+Métricas en el Software: Factores de Calidad, Métricas de Calidad
+Enfoques de Desarrollo de Software: Estructurado, Orientado a Objetos
+Metodologías de Desarrollo de Software
+UML
+
+
+ISOO
+Proceso Unificado (Rational Unified Process -RUP):
+Antecedentes de la programación orientada a objetos (POO)
+Características de la POO
+Técnica de modelado de objetos
+Tipos de diagramas
+El diseño orientado a objetos
+
+POO
+1. Determinar los tipos de aplicación y las situaciones en las que se debe aplicar el paradigma orientado a objetos.
+2. Comprender, interpretar y analizar el cambio de enfoque en el modo de resolver problemas que supone el uso del paradigma orientado a objetos respecto a otros paradigmas.
+3. Aplicar los conceptos del paradigma de programación orientada a objetos tales como: polimorfismo, encapsulamiento, herencia, sobrecarga, funciones virtuales, etc.
+4. Manejar adecuadamente conceptos tales como: recursividad, objetos transientes, residentes y persistentes; generalización y generacidad; clases plantillas; asociación, agregación y composición.
+5. Identificar problemas de: portabilidad, efectos colaterales y transparencia referencial.
+6. Comprender la enorme importancia de crear software fiable, reutilizable y mantenible.
+7. Dominar estrategias básicas de reutilización como son el uso de librerías o paquetes de software.
+8. Aplicar el modelo orientado a objetos en programación de dispositivos de cómputo
+
+Electiva 3
+Bases de datos
+Consultas sql
+Cubo de datos
+Business intelligence
+Power BI
+
+
+Electiva 2
+
+Conductividad
+Diodos
+Circuitos DIGITALES
+Redes de comunicación
+Direcciones Ip
+
+

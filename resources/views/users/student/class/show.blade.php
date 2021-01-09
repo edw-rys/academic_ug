@@ -1,4 +1,10 @@
 @extends('components.template')
+@section('styles_cdn')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" rel="stylesheet" type="text/css">
+@endsection
+@section('scripts_cdn')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+@endsection
 @include('partials.datatable')
 @section('section')
 <div class="row">
@@ -23,24 +29,24 @@
                         <div class="card-body">
                             <h5 class="card-title text-center">{{ $class_subject->name }}</h5>
                             <div class="">
+                                @if ($class_subject->comment == null)
                                 <form method="POST" class="flex flex-y flex-center" id="form-{{$class_subject->id}}" onsubmit="saveCommentByClass(event, {{ $class_subject->id }} )">
                                     @csrf
                                         <input type="hidden" name="class_id" value="{{$class_subject->id}}">
                                         <input type="hidden" name="class_student_id" value="{{$data->id}}">
                                     <div class="form-group">
-                                        <div class="hidden">
+                                    <div class="hidden">
                                         @dump($class_subject->comment)
-                                        </div>
-                                        @if ($class_subject->comment == null)
-                                            <textarea class="form-control" name="comment" placeholder="¿Què tal estuvo la clase?" style="min-height: 118px">{{ $class_subject->comment ? $class_subject->comment->comment : '' }}</textarea>
-                                        @else
-                                            <p class="form-control">{{ $class_subject->comment->comment }}</p>
-                                        @endif
+                                    </div>
+                                        <textarea class="form-control" name="comment" placeholder="¿Què tal estuvo la clase?" style="min-height: 118px">{{ $class_subject->comment ? $class_subject->comment->comment : '' }}</textarea>
                                     </div>
                                     <div class="flex flex-center">
                                         <button class="btn btn-primary" type="submit">Publicar</button>
                                     </div>
                                 </form>
+                                @else
+                                    <p class="">{{ $class_subject->comment->comment }}</p>
+                                @endif
                             </div>
                         </div>
                 </div>
@@ -51,15 +57,35 @@
 
     <div class="col-md-12">
         <div class="card flex-center flex flex-y" style="box-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.24);">
-            <h4 class="text-center bold">Porcentaje de actitud negativa detectada</h4>
-            <div>
-                <div id="cont-percent" data-pct="{{ $percent }}">
-                <svg id="percent-element" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                  <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                </svg>
-                
+            <h4 class="text-center bold">Porcentaje de actitudes</h4>
+            <div class="row">
+                <div class="col-md-8" style="margin: auto">
+                    <canvas id="pie" width="600" height="400"></canvas>
+                </div>
             </div>
+            {{-- <div class="row">
+                <div class="col-xs-12 col-md-2 col-1">
+                    <div id="cont-percent" data-pct="{{ round($negative_percent) }}">
+                    <svg id="percent-element" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                    </svg>
+                </div>
+                <div class="col-xs-12 col-md-2 col-1">
+                    <div id="cont-percent" data-pct="{{ round($positive_percent) }}">
+                    <svg id="percent-element" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                    </svg>
+                </div>
+                <div class="col-xs-12 col-md-2 col-1">
+                    <div id="cont-percent" data-pct="{{ round($neutral_percent) }}">
+                    <svg id="percent-element" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                        <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
+                    </svg>
+                </div>    --}}            
+            </div> 
         </div>
     </div>
 </div>    
@@ -84,8 +110,43 @@
 	}
 
     $(document).ready(function() {
-        calculatePercent({{ $percent }}, '#percent-element #bar', 'cont-percent');
+        var data = {
+            labels: [
+                "Actitud negativa",
+                "Actitud positiva",
+                "Neutral",
+                "Sin comentarios",
+            ],
+            datasets: [
+                {
+                    data: [
+                        {{ round($negative_percent,2) }},
+                        {{ round($positive_percent,2) }} ,
+                        {{ round($neutral_percent,2) }} ,
+                        {{ 100-(round($positive_percent,2) + round($negative_percent,2) + round($neutral_percent,2)) }}
+                    ],
+                    backgroundColor: [
+                        "#FF9E23",
+                        "#2DFFD1",
+                        "#C5C5C5",
+                        "#ECECEC",
+                    ]
+                }]
+        };
+ 
+        var pie = document.getElementById('pie');
+        var pieConfig = new Chart(pie, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+            }
+        });
+
     });
+
+
 
 </script>
 @endsection

@@ -1,5 +1,11 @@
 @extends('components.template')
 @include('partials.datatable')
+@section('styles_cdn')
+<link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" rel="stylesheet" type="text/css">
+@endsection
+@section('scripts_cdn')
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+@endsection
 @section('section')
 <div class="row">
     <div class="col-md-12">
@@ -108,16 +114,13 @@
 
     <div class="col-md-12">
         <div class="card flex-center flex flex-y" style="box-shadow: 0 1px 3px rgba(0,0,0,0.25), 0 1px 2px rgba(0,0,0,0.24);">
-            <h4 class="text-center bold">Porcentaje de actitud negativa detectada</h4>
-            <div>
-                <div id="cont-percent" data-pct="{{ $percent }}">
-                <svg id="percent-element" width="200" height="200" viewPort="0 0 100 100" version="1.1" xmlns="http://www.w3.org/2000/svg">
-                  <circle r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                  <circle id="bar" r="90" cx="100" cy="100" fill="transparent" stroke-dasharray="565.48" stroke-dashoffset="0"></circle>
-                </svg>
-                
+            <h4 class="text-center bold">Porcentaje de actitudes</h4>
+            <div class="row">
+                <div class="col-md-8" style="margin: auto">
+                    <canvas id="pie" width="600" height="400"></canvas>
+                </div>
             </div>
-        </div>
+        </div> 
     </div>
 </div>    
 <script>
@@ -141,7 +144,39 @@
 	}
 
     $(document).ready(function() {
-        calculatePercent({{ $percent }}, '#percent-element #bar', 'cont-percent');
+        var data = {
+            labels: [
+                "Actitud negativa",
+                "Actitud positiva",
+                "Neutral",
+                "Sin comentarios",
+            ],
+            datasets: [
+                {
+                    data: [
+                        {{ round($negative_percent,2) }},
+                        {{ round($positive_percent,2) }} ,
+                        {{ round($neutral_percent,2) }} ,
+                        {{ 100-(round($positive_percent,2) + round($negative_percent,2) + round($neutral_percent,2)) }}
+                    ],
+                    backgroundColor: [
+                        "#FF9E23",
+                        "#2DFFD1",
+                        "#C5C5C5",
+                        "#ECECEC",
+                    ]
+                }]
+        };
+ 
+        var pie = document.getElementById('pie');
+        var pieConfig = new Chart(pie, {
+            type: 'pie',
+            data: data,
+            options: {
+                responsive: true, // Instruct chart js to respond nicely.
+                maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
+            }
+        });
     });
 
 </script>

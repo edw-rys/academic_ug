@@ -50,6 +50,7 @@ class AcademicController extends Controller
      */
     public function showClass($id)
     {
+		// Get data subject class
     	$data = CourseSubject::with('period')
 			->with('course')
 			->with('teacher')
@@ -57,21 +58,41 @@ class AcademicController extends Controller
 			->with('course_students')
 			->with('course_students.student')
 			->with(['class_subject'=>function($query){
-				$query->where('teacher_id', auth()->user()->id);
+				$query->where('teacher_id', auth()->user()->id)
+					->with('comments');
 			}])
 			->where('teacher_id', auth()->user()->id)
 			->where('id', $id)
 			->first();
-		// Get data subject class
+
 
 
 		if($data === null){
 			abort(404);
 		}
+
+		$negative_percent = 0;
+		$positive_percent = 0;
+		$neutra_percent = 0;
+		foreach ($data->class_subject as $key => $value) {
+			if(isset($value->comments) && count($value->comments)>0){
+				foreach ($value->comments as $key => $comment) {
+					$negative_percent += $comment->negative;
+					$positive_percent += $comment->positive;
+					$neutra_percent += $comment->neutral;
+				}
+			}
+		}
+		$size = count($data->class_subject) * count($data->course_students);
+		$negative_percent = ( $negative_percent/ $size)*100;
+		$positive_percent = ( $positive_percent/ $size)*100;
+		$neutra_percent =   ( $neutra_percent/ $size)*100;
 		// Return view with data
 		return view('users.teacher.class.show')
     		->with('data', $data)
-    		->with('percent', rand(0,100));
+    		->with('negative_percent', $negative_percent)
+			->with('positive_percent', $positive_percent)
+			->with('neutral_percent', $neutra_percent);
 	}
 	/**
 	 * ELIMINAR LUEGO

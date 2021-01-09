@@ -114,5 +114,10 @@ return [
 		'date_format'	=> 'd-m-Y',
 		'date_format_show'	=> 'd/m/Y',
 		'date_picker'	=> 'dd-mm-yyyy'
+	],
+	'api'		=> [
+		'url'		=> env('APP_API','http://127.0.0.1:3000'),
+		'comment'	=> 'api/comment/analize',
+        'timeout'	=> 10,
 	]
 ];
