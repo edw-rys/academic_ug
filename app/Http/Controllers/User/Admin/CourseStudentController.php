@@ -21,7 +21,7 @@ class CourseStudentController extends Controller
      */
     public function __construct()
     {
-        $this->title = 'Matriculas';
+        $this->title = 'Matrículas';
         $this->singular_title = 'Matricula';
         $this->action = 'course_student';
         $this->permissions  = (object) [
@@ -36,7 +36,8 @@ class CourseStudentController extends Controller
             'index'         => 'users.admin.pages.course_student.index',
             'create'        => 'users.admin.pages.course_student.create',
             'edit'          => 'users.admin.pages.course_student.edit',
-            'show'          => 'users.admin.pages.course_student.show'
+            'show'          => 'users.admin.pages.course_student.show',
+            'students'      => 'users.admin.pages.course_student.students'
         ];
 
         $this->routes       = (object) [
@@ -60,10 +61,16 @@ class CourseStudentController extends Controller
 
         viewExist($this->views->index);
 
+        $periods = Period::where('status', '!=' ,'deleted')
+    		->orderBy('id','desc')
+    		->get();
+
         return $dataTable->render($this->views->index,
             [
                 'title' => $this->title, 
                 'singular_title'=> $this->singular_title,
+                'periods'   => $periods,
+                'action'    => $this->action
             ]
         );
     }
@@ -126,15 +133,73 @@ class CourseStudentController extends Controller
         ]);
     }
 
-    
+    /**
+     * @param $id
+     * @return Factory|View
+     */
     public function statistics($id)
     {
-        $data = CourseStudent::where('id', $id)
-            ->with('course_subject')
-            ->with('course_subject.class_subject')
-            ->with('course_subject.class_subject.comments')
+        $data = CourseSubject::with('period')
+            ->with('course')
+            ->with('teacher')
+            ->with('subject')
+            ->with('course_students')
+            ->with('course_students.student')
+            ->with(['class_subject'=>function($query){
+                $query->with('comments');
+            }])
+            ->where('id', $id)
             ->first();
-        // dd($data);
-        return '<h1>Se detiene el desarrollo por un bajón emocional.</h1>';
+        
+            if($data === null){
+                // abort(404);
+                return 404;
+            }
+    
+        $negative_percent = 0;
+        $positive_percent = 0;
+        $neutra_percent = 0;
+        foreach ($data->class_subject as $key => $value) {
+            if(isset($value->comments) && count($value->comments)>0){
+                foreach ($value->comments as $key => $comment) {
+                    $negative_percent += $comment->negative;
+                    $positive_percent += $comment->positive;
+                    $neutra_percent += $comment->neutral;
+                }
+            }
+        }
+        $size = count($data->class_subject) * count($data->course_students);
+        $negative_percent = ( $negative_percent/ $size)*100;
+        $positive_percent = ( $positive_percent/ $size)*100;
+        $neutra_percent =   ( $neutra_percent/ $size)*100;
+        // Return view with data
+        return view('users.admin.pages.course_subject.show')
+            ->with('data', $data)
+            ->with('negative_percent', $negative_percent)
+            ->with('positive_percent', $positive_percent)
+            ->with('neutral_percent', $neutra_percent);
+                // return '<h1>Se detiene el desarrollo por un bajón emocional.</h1>';
+    }
+
+    /**
+     * Show the students enrolled in that subject with the teacher.
+     * @param $id | Id of the column that joins the subject and the teacher
+     * @return Factory|View
+     */
+    public function showStudents($id)
+    {
+        $courseSubject = CourseSubject::where('id', $id)
+            ->with('course')
+            ->with('period')
+            ->with('teacher')
+            ->with('subject')
+            ->with('course_students')
+            ->with('course_students.student')
+            ->first();
+        if($courseSubject == null){
+            abort(404);
+        }
+        return view($this->views->students)
+            ->with('data', $courseSubject);
     }
 }

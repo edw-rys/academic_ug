@@ -54,6 +54,9 @@ class StudentController extends Controller
 		$data = CourseSubject::with('teacher')
 			->where('id', $id)
 			->first();
+		if($data == null){
+			abort(404);
+		}
 		$teacher_id = $data->teacher->id;
 
     	$data = CourseSubject::with('period')
@@ -131,7 +134,7 @@ class StudentController extends Controller
     		$comment->save();
 		}
 		
-		// $res = $this->apiService->sendIdComment($comment->id);
+		$res = $this->apiService->sendIdComment($comment->id);
     	return response()->json([
     			'message'	=> 'Guardado',
     			'status'	=> 'error'

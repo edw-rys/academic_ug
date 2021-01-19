@@ -7,7 +7,8 @@ return [
 			'menus'	=> [
 		    	(object) [
 		    		'title'			=> 'Dashboard',
-		    		'icon'			=> 'fas fa-fire',
+					'id'			=> 'xlvpa',
+		    		'icon'			=> 'fas fa-home',
 		    		'has_permissions' 	=> false,
 		    		'permissions' 	=> false,
 		    		'route'			=> 'user.dashboard.index'
@@ -20,13 +21,15 @@ return [
 			'menus'	=> [
 				(object) [
 		    		'title'			=> 'Académico',
+					'id'			=> 'admm',
 		    		'icon'			=> 'fas fa-fire',
 		    		'has_permissions' 	=> true,
 		    		'permissions' 	=> 'show_academic_teacher',
 		    		'route'			=> 'teacher.academic.index'
 				],
 				(object) [
-		    		'title'			=> 'Académico',
+					'title'			=> 'Académico',
+					'id'			=> 'ackm',
 		    		'icon'			=> 'fas fa-fire',
 		    		'has_permissions' 	=> true,
 		    		'permissions' 	=> 'academic_menu',
@@ -43,6 +46,7 @@ return [
 		    	(object) [
 		    		'title'			=> 'Gestión Usuarios',
 		    		'icon'			=> 'fas fa-fire',
+					'id'			=> 'xlvpac',
 		    		'has_permissions' 	=> true,
 		    		'permissions' 	=> 'admin_users_menu',
 		    		'route'			=> false,
@@ -69,6 +73,7 @@ return [
 				],
 				(object) [
 					'title'			=> 'Gestión Aula',
+					'id'			=> 'xlvpacac',
 					'icon'			=> 'fas fa-fire',
 					'has_permissions' 	=> true,
 					'permissions' 	=> 'admin_course_menu',
@@ -99,7 +104,7 @@ return [
 							'route'			=> 'admin.course_subject.index',
 						],
 						(object) [
-							'title'			=> 'Matriculación',
+							'title'			=> 'Estudiantes|Paralelo',
 							'has_permissions' 	=> true,
 							'permissions' 	=> 'access_registration',
 							'route'			=> 'admin.course_student.index',
@@ -119,5 +124,8 @@ return [
 		'url'		=> env('APP_API','http://127.0.0.1:3000'),
 		'comment'	=> 'api/comment/analize',
         'timeout'	=> 10,
+	],
+	'views_title'	=> [
+		'dashboard' => 'Dashboard',
 	]
 ];

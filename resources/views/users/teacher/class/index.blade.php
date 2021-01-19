@@ -5,7 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body">
-            	<select name="" class="select2" id="period" onchange="updateClass(this.value)">
+            	<select style="width: 50%" class="select2 center" id="period" onchange="updateClass(this.value)">
                     @foreach($periods as $period)
                         <option value="{{ $period->id }}">{{ $period->name }}</option>
                     @endforeach

@@ -35,7 +35,14 @@ class CourseStudentDataTable extends DataTable
      */
     public function query(CourseSubject $model): Builder
     {
-        $period = Period::where('status','active')->get()->last();
+        $request = $this->request();
+        $period = null;
+        if($request->period_id && $request->period_id != null){
+            $period = Period::find($request->period_id);
+        }
+        if($period == null){
+            $period = Period::where('status','active')->get()->last();
+        }
 
         $model = $model->where('period_id', $period->id);
 
@@ -105,8 +112,9 @@ class CourseStudentDataTable extends DataTable
             ->addColumn('teacher', static function ($query) {
                 return $query->teacher->name .' '. $query->teacher->last_name;
             })
-            ->addColumn('course_students', static function ($query) {
+            ->addColumn('course_students', static function ($query) use ($route) {
                 // return $query->course_students;
+                return edit_action($route.'.students',$query->id,'Ver estudiantes','btn btn-info');
                 $html = '';
                 $count = 0;
                 foreach ($query->course_students as $key => $value) {

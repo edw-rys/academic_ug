@@ -3,7 +3,7 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" rel="stylesheet" type="text/css">
 @endsection
 @section('scripts_cdn')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="{{ asset('js/plugin/chart.js/chart.min.js') }}"></script>
 @endsection
 @include('partials.datatable')
 @section('section')
@@ -128,22 +128,44 @@
                     backgroundColor: [
                         "#FF9E23",
                         "#2DFFD1",
+                        "#FCF591",
                         "#C5C5C5",
-                        "#ECECEC",
                     ]
                 }]
         };
  
-        var pie = document.getElementById('pie');
-        var pieConfig = new Chart(pie, {
-            type: 'pie',
-            data: data,
-            options: {
-                responsive: true, // Instruct chart js to respond nicely.
-                maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
-            }
-        });
-
+        var pieChart = document.getElementById('pie').getContext('2d');
+        var myPieChart = new Chart(pieChart, {
+			type: 'pie',
+			data: data,
+			options : {
+				responsive: true, 
+				maintainAspectRatio: false,
+				legend: {
+					position : 'bottom',
+					labels : {
+						fontColor: 'rgb(154, 154, 154)',
+						fontSize: 11,
+						usePointStyle : true,
+						padding: 20
+					}
+				},
+				pieceLabel: {
+					render: 'percentage',
+					fontColor: 'white',
+					fontSize: 14,
+				},
+				// tooltips: true,
+				layout: {
+					padding: {
+						left: 20,
+						right: 20,
+						top: 20,
+						bottom: 20
+					}
+				}
+			}
+		})
     });
 
 

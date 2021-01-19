@@ -25,6 +25,7 @@ Route::post('login', 'LoginController@login')->name('auth.login')->middleware(['
 Route::middleware(['IsAuthenticated'])->group(function () {
 
     Route::get('user/dashboard', 'User\DashboardController@index')->name('user.dashboard.index');
+    Route::get('user/dashboard/Statistics', 'User\DashboardController@getDataGraphic')->name('user.dashboard.Statistics');
     Route::get('user/logout', 'LoginController@logout')->name('user.logout');
 });
 /*

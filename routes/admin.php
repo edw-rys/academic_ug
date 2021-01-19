@@ -47,4 +47,6 @@ Route::group([],function(){
     
     Route::resource('course_student', 'CourseStudentController');
     Route::get('course_student/statistics/{id}', 'CourseStudentController@statistics')->name('course_student.statistics');
+    Route::get('course_student/students/{id}', 'CourseStudentController@showStudents')->name('course_student.students');
+
 });

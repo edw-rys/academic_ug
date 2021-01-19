@@ -4,26 +4,37 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" rel="stylesheet" type="text/css">
 @endsection
 @section('scripts_cdn')
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+<script src="{{ asset('js/plugin/chart.js/chart.min.js') }}"></script>
 @endsection
 @section('section')
+<div class="panel-header bg-primary-gradient">
+    <div class="page-inner py-5">
+      <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
+        <div class="card-body">
+            <h5 class="card-title fw-bold text-white text-center">{{ $data->subject->name }}</h5>
+            <p class="text-white card-text fw-bold text-center">Curso</p>
+            <p class="text-white card-text text-center">{{ $data->course->name }}</p>
+            {{-- <p class="card-text bold text-center">Profesor</p> --}}
+            {{-- <p class="card-text text-center">{{ $data->teacher->name }} {{ $data->teacher->last_name }}</p> --}}
+            <p class="card-text text-white text-center fw-bold">Periodo</p>
+            <p class="card-text text-white text-center">{{ \Carbon\Carbon::create($data->period->start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::create($data->period->end_date)->format('d/m/Y') }}</p>
+            <div class="flex flex-center">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Lista de Estudiantes
+                </button>
+            </div>
+        </div>
+        <div class="ml-md-auto py-2 py-md-0">
+          {{-- <a href="#" class="btn btn-white btn-border btn-round mr-2">Manage</a>
+          <a href="#" class="btn btn-secondary btn-round">Add Customer</a> --}}
+        </div>
+      </div>
+    </div>
+  </div>
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-body">
-                <h5 class="card-title text-center">{{ $data->subject->name }}</h5>
-                <p class="card-text bold text-center">Curso</p>
-			    <p class="card-text text-center">{{ $data->course->name }}</p>
-                {{-- <p class="card-text bold text-center">Profesor</p> --}}
-			    {{-- <p class="card-text text-center">{{ $data->teacher->name }} {{ $data->teacher->last_name }}</p> --}}
-                <p class="card-text text-center bold">Periodo</p>
-                <p class="card-text text-center">{{ \Carbon\Carbon::create($data->period->start_date)->format('d/m/Y') }} - {{ \Carbon\Carbon::create($data->period->end_date)->format('d/m/Y') }}</p>
-                <div class="flex flex-center">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                        Lista de Estudiantes
-                    </button>
-                </div>
-            </div>
+            
         </div>
     </div>
     {{-- Students --}}
@@ -47,7 +58,7 @@
         <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Estudiantes</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
@@ -162,21 +173,44 @@
                     backgroundColor: [
                         "#FF9E23",
                         "#2DFFD1",
+                        "#FCF591",
                         "#C5C5C5",
-                        "#ECECEC",
                     ]
                 }]
         };
  
-        var pie = document.getElementById('pie');
-        var pieConfig = new Chart(pie, {
-            type: 'pie',
-            data: data,
-            options: {
-                responsive: true, // Instruct chart js to respond nicely.
-                maintainAspectRatio: true, // Add to prevent default behaviour of full-width/height 
-            }
-        });
+        var pieChart = document.getElementById('pie').getContext('2d');
+        var myPieChart = new Chart(pieChart, {
+			type: 'pie',
+			data: data,
+			options : {
+				responsive: true, 
+				maintainAspectRatio: false,
+				legend: {
+					position : 'bottom',
+					labels : {
+						fontColor: 'rgb(154, 154, 154)',
+						fontSize: 11,
+						usePointStyle : true,
+						padding: 20
+					}
+				},
+				pieceLabel: {
+					render: 'percentage',
+					fontColor: 'white',
+					fontSize: 14,
+				},
+				// tooltips: true,
+				layout: {
+					padding: {
+						left: 20,
+						right: 20,
+						top: 20,
+						bottom: 20
+					}
+				}
+			}
+		})
     });
 
 </script>
