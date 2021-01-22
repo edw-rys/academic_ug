@@ -17,7 +17,7 @@
     {{--
     --}}
     <link rel="stylesheet" h	ref="{{ asset('plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}">
-
+ 
     <link rel="stylesheet" type="text/css"
         href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.12/css/select2.min.css">
 
