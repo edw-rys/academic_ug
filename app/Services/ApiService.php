@@ -52,6 +52,8 @@ class ApiService
             ]);
 
             $response = json_decode($response->getBody()->getContents());
+            // var_dump($response);
+            // dd($response);
             return $response;
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             Log::error('guzzle_connect_exception', $data_for_log + ['message' => $e->getMessage()]);

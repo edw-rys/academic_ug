@@ -134,7 +134,7 @@ class StudentController extends Controller
     		$comment->save();
 		}
 		
-		$res = $this->apiService->sendIdComment($comment->id);
+		// $res = $this->apiService->sendIdComment($comment->id);
     	return response()->json([
     			'message'	=> 'Guardado',
     			'status'	=> 'error'
