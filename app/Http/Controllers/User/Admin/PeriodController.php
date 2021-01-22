@@ -9,7 +9,7 @@ use App\Http\Requests\Admin\Period\FinalizePeriodRequest;
 use App\Http\Requests\Admin\Period\RestorePeriodRequest;
 use App\Http\Requests\Admin\Period\StorePeriodRequest;
 use App\Http\Requests\Admin\Period\UpdatePeriodRequest;
-use App\Models\period;
+use App\Models\Period;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -102,7 +102,7 @@ class PeriodController extends Controller
             'end_date'      => Carbon::createFromFormat(config('app_academic.setting.date_format'), $request->input('end_date'))->toDateString(),
         ]);
 
-        period::create($request->all());
+        Period::create($request->all());
 
         return response()->json([
             'message' => 'Creado',
