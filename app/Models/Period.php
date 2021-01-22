@@ -15,5 +15,10 @@ class Period extends Model
         'updated_at',
     ];
 
+    protected $date = [
+        'start_date', 
+        'end_date', 
+    ];
+
     protected $table = 'period';
 }

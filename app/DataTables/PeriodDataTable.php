@@ -33,7 +33,7 @@ class PeriodDataTable extends DataTable
      */
     public function query(Period $model): Builder
     {
-        return $model->newQuery();
+        return $model->newQuery()->orderBy('start_date','asc');
     }
 
     /**
@@ -87,10 +87,10 @@ class PeriodDataTable extends DataTable
                 return $query->name;
             })
             ->editColumn('start_date', static function ($query) {
-                return Carbon::create($query->start_date);
+                return Carbon::create($query->start_date)->format('d/m/Y');
             })
             ->editColumn('end_date', static function ($query) {
-                return Carbon::create($query->end_date);
+                return Carbon::create($query->end_date)->format('d/m/Y');
             })
             ->editColumn('status', static function ($query) {
                 return status($query->status);
