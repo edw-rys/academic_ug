@@ -27,4 +27,16 @@ class DestroyUserRequest extends FormRequest
             'id'    => ['required', 'integer']
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'id.required'          => 'Se requiere id.',
+            'id.integer'           => 'Id debe ser numérico.',
+        ];
+    }
 }

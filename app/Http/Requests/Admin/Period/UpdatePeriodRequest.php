@@ -31,4 +31,22 @@ class UpdatePeriodRequest extends FormRequest
             'end_date'      => ['required', 'date_format:"' . $date_format . '"'],
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'id.required'          => 'Se requiere id.',
+            'id.integer'           => 'Id debe ser numérico.',
+            'name.required'           => 'Se requiere el nombre.',
+            'name.string'           => 'Nombre debe ser textual.',
+            'start_date.required'           => 'Se requiere el fecha de inicio.',
+            'start_date.date_format'           => 'Formato de fecha incorrecta.',
+            'end_date.required'           => 'Se requiere el fecha de fin.',
+            'end_date.date_format'           => 'Formato de fecha incorrecta.',
+        ];
+    }
 }

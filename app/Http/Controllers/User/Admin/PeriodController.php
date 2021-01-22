@@ -246,10 +246,10 @@ class PeriodController extends Controller
                 'message'    => 'Periodo no encontrado'
             ],404);
         }
-
+       
         $item->status = 'finalized';
         $item->save();
-
+        
         return response()->json([
             'message' => 'Finalizado',
             'action'  => 'restore',

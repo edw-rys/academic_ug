@@ -35,14 +35,27 @@ class CouseSubjectDataTable extends DataTable
      */
     public function query(CourseSubject $model): Builder
     {
-        $period = Period::where('status','active')->get()->last();
+        $request = $this->request();
+        $period = null;
+        
+        if($request->period_id && $request->period_id != null){
+            $period = Period::find($request->period_id);
+        }
+        if($period == null){
+            $period = Period::where('status','active')->get()->last();
+        }
+        if($period != null){
+            $model = $model->where('period_id', $period->id);
+        }else{
+            $model = $model->where('id', '0');
+        }
 
-        $model = $model->select(['course_id','period_id'])->where('period_id', $period->id)->groupBy(['course_id', 'period_id']);
+        $model = $model->select(['course_id','period_id'])->groupBy(['course_id', 'period_id']);
 
         $model->with([
             'course','period'
         ]);
-        return $model->newQuery();
+        return $model;
     }
 
     /**
@@ -81,7 +94,7 @@ class CouseSubjectDataTable extends DataTable
         $route      = $this->route;
         $context    = $this;
         $period = Period::where('status','active')->get()->last();
-        
+        $period = $period!=null ? $period : (object)['id'=>0];
         return datatables()
             ->eloquent($query)
             ->setRowId('id')

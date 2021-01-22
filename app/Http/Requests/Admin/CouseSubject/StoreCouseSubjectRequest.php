@@ -29,4 +29,21 @@ class StoreCouseSubjectRequest extends FormRequest
             'subject_id' => ['required', 'integer'],
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'teacher_id.required'          => 'Se debe seleccionar el profesor.',
+            'teacher_id.integer'           => 'Se debe seleccionar el profesor.',
+            'course_id.required'          => 'Se debe seleccionar el curso.',
+            'course_id.integer'           => 'Se debe seleccionar el curso.',
+            'subject_id.required'          => 'Se debe seleccionar la asignatura.',
+            'subject_id.integer'           => 'Se debe seleccionar la asignatura.',
+
+        ];
+    }
 }

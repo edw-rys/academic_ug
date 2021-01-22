@@ -43,8 +43,11 @@ class CourseStudentDataTable extends DataTable
         if($period == null){
             $period = Period::where('status','active')->get()->last();
         }
-
-        $model = $model->where('period_id', $period->id);
+        if($period != null){
+            $model = $model->where('period_id', $period->id);
+        }else{
+            $model = $model->where('id', '0');
+        }
 
         $model->with(['course','period', 'teacher', 'subject','course_students','course_students.student']);
 

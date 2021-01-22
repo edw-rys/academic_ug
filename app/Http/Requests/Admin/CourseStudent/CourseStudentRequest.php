@@ -28,4 +28,18 @@ class CourseStudentRequest extends FormRequest
             'student_id' => ['required', 'integer'],
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'course_subject_id.required'          => 'Se debe seleccionar el curso.',
+            'course_subject_id.integer'           => 'Se debe seleccionar el curso.',
+            'student_id.required'          => 'Se debe seleccionar el estudiante.',
+            'student_id.integer'           => 'Se debe seleccionar el estudiante.',
+        ];
+    }
 }

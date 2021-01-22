@@ -56,11 +56,17 @@ class CourseSubjectController extends Controller
      */
     public function index(CouseSubjectDataTable $dataTable){
         
+        $periods = Period::where('status', '!=' ,'deleted')
+    		->orderBy('id','desc')
+    		->get();
+
         viewExist($this->views->index);
 
         return $dataTable->render($this->views->index,
             [
                 'title' => $this->title, 
+                'periods'   => $periods,
+                'action'    => $this->action,
                 'singular_title'=> $this->singular_title,
             ]
         );
@@ -77,6 +83,10 @@ class CourseSubjectController extends Controller
         canAccessTo($this->permissions->create);
 
         viewExist($this->views->create);
+
+        if(Period::where('status','active')->get()->last() == null){
+            return 'No hay periodo activo.';
+        }
 
         return view($this->views->create)
             ->with('route', 'admin.course_subject.store')
@@ -98,6 +108,12 @@ class CourseSubjectController extends Controller
 
         $period = Period::where('status','active')->get()->last();
 
+        if($period == null){
+            return response()->json([
+                'message' => 'No se puede asignar.',
+                'action'  => 'create'
+            ],404);
+        }
         $request->merge([
             'created_at' => Carbon::now(),
             'period_id' => $period->id,
@@ -112,7 +128,7 @@ class CourseSubjectController extends Controller
             return response()->json([
                 'message' => 'No se puede asignar.',
                 'action'  => 'create'
-            ],400);
+            ],402);
         }
         
         CourseSubject::create($request->all());
@@ -129,6 +145,11 @@ class CourseSubjectController extends Controller
     public function getByCourse($id)
     {
         $period = Period::where('status','active')->get()->last();
+        if($period == null){
+            return response()->json([
+                'message' => 'Periodo no habilitado'
+            ],404);
+        }
         return response()->json(
             CourseSubject::where('course_id', $id)
                 ->where('period_id', $period->id)

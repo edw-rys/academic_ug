@@ -31,4 +31,20 @@ class StoreUserRequest extends FormRequest
             'last_name' => ['required', 'string' ],
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'email.required'           => 'Se requiere el correo.',
+            'email.string'           => 'El correo debe ser textual.',
+            'name.required'           => 'Se requiere el nombre.',
+            'name.string'           => 'Nombre debe ser textual.',
+            'last_name.required'           => 'Se require el apellido.',
+            'last_name.string'           => 'El apellido debe ser textual.',
+        ];
+    }
 }

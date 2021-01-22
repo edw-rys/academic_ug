@@ -29,4 +29,20 @@ class UpdateCourseRequest extends FormRequest
             'id'  => ['required', 'integer'],
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'id.required'          => 'Se requiere id.',
+            'id.integer'           => 'Id debe ser numérico.',
+            'name.required'           => 'Se requiere el nombre.',
+            'name.string'           => 'Nombre debe ser textual.',
+            'code.required'           => 'Se requiere el código.',
+            'code.string'           => 'El código debe ser textual.',
+        ];
+    }
 }

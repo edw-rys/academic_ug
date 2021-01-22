@@ -28,4 +28,17 @@ class StoreSubjectRequest extends FormRequest
             //
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required'           => 'Se requiere el nombre.',
+            'name.string'           => 'Nombre debe ser textual.',
+        ];
+    }
 }

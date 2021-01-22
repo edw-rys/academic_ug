@@ -29,4 +29,20 @@ class StoreCommentRequest extends FormRequest
             'class_student_id' => ['required', 'integer'],
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'comment.required'          => 'Se debe comentar',
+            'comment.string'            => 'El comentario debe ser textual.',
+            'class_id.required'         => 'Clase no exste.',
+            'class_id.numeric'          => 'Clase incorrecta.',
+            'class_student_id.required' => '.',
+            'class_student_id.numeric'  => '',
+        ];
+    }
 }

@@ -64,12 +64,36 @@
             redirect: false,
             data: $('#formSave').serialize(), 
             success: function (response) {
-                toastr.success(response.message)
+                $.notify(
+                    {
+                        icon: 'flaticon-hands',
+                        title: response.message,
+                        message: '',
+                    },{
+                    type: 'info',
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
                 document.getElementById("formSave").reset();
                 window.LaravelDataTables["{{$action}}-table"].draw()
             },
             error: function (error) {
-                toastr.warning(error.responseJSON.message)
+                $.notify(
+                    {
+                        icon: 'flaticon-hands-1',
+                        title: error.responseJSON.message,
+                        message: '',
+                    },{
+                    type: 'warning',
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
                 if(error.responseJSON.errors){
                     var dataKeys = Object.keys(error.responseJSON.errors);
                     var dataValues = Object.values(error.responseJSON.errors);

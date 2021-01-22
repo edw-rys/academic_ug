@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <div class="form-group @error('course_id') {{ 'is-invalid' }} @enderror">
                         <label for="course_id">Curso</label>
-                        <select name="course_id" class="select2" id="course_id" onchange="searchData(this.value)">
+                        <select style="width: 100%" name="course_id" class="select2" id="course_id" onchange="searchData(this.value)">
                             @foreach ($course_all as $course)
                                 <option value="{{ $course->id }}">{{ $course->name }}</option>
                             @endforeach
@@ -21,13 +21,13 @@
                     </div>
                     <div class="form-group @error('course_subject_id') {{ 'is-invalid' }} @enderror">
                         <label for="course_subject_id">Curso</label>
-                        <select name="course_subject_id" class="select2" id="course_subject_id">
+                        <select style="width: 100%" name="course_subject_id" class="select2" id="course_subject_id">
                         </select>
                         <p id="err-course_subject_id" class="hidden helper-block err-fields"></p>
                     </div>
                     <div class="form-group @error('student_id') {{ 'is-invalid' }} @enderror">
                         <label for="student_id">Estudiante</label>
-                        <select name="student_id" class="select2" id="student_id">
+                        <select style="width: 100%" name="student_id" class="select2" id="student_id">
                             @foreach (getUsersByRole('student')->where('status', 'active')->get() as $teacher)
                                 <option value="{{ $teacher->id }}">{{ $teacher->last_name }} {{ $teacher->name }}</option>
                             @endforeach
@@ -59,12 +59,36 @@
             redirect: false,
             data: $('#formSave').serialize(), 
             success: function (response) {
-                toastr.success(response.message)
+                $.notify(
+                    {
+                        icon: 'flaticon-hands',
+                        title: response.message,
+                        message: '',
+                    },{
+                    type: 'info',
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
                 // document.getElementById("formSave").reset();
                 window.LaravelDataTables["{{$action}}-table"].draw()
             },
             error: function (error) {
-                toastr.warning(error.responseJSON.message)
+                $.notify(
+                    {
+                        icon: 'flaticon-hands-1',
+                        title: error.responseJSON.message,
+                        message: '',
+                    },{
+                    type: 'warning',
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
                 if(error.responseJSON.errors){
                     var dataKeys = Object.keys(error.responseJSON.errors);
                     var dataValues = Object.values(error.responseJSON.errors);

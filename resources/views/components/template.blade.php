@@ -285,9 +285,18 @@
                     if (response.status == "success") {
                         // $.easyBlockUI('#leads-table');
                         window.LaravelDataTables[dt_id + "-table"].draw();
-                        if (toastr) {
-                            toastr.success(response.message)
-                        }
+                        $.notify({
+                          icon: 'flaticon-alarm-1',
+                          title: response.message,
+                          message: '',
+                        },{
+                          type: 'secondary',
+                          placement: {
+                            from: "bottom",
+                            align: "right"
+                          },
+                          time: 1000,
+                        });
                         // window.location.reload();
                         // $.easyUnblockUI('#leads-table');
                     }
@@ -309,15 +318,50 @@
                     if (response.status == "success") {
                         // $.easyBlockUI('#leads-table');
                         window.LaravelDataTables[dt_id + "-table"].draw();
-                        if (toastr) {
-                            toastr.success(response.message)
-                        }
+                        $.notify({
+                          icon: 'flaticon-hands',
+                          title: response.message,
+                          message: '',
+                        },{
+                          type: 'info',
+                          placement: {
+                            from: "bottom",
+                            align: "right"
+                          },
+                          time: 1000,
+                        });
                         // window.location.reload();
                         // $.easyUnblockUI('#leads-table');
                     }
                 },
                 error: function(params) {
-                    toastr.warning(params.responseJSON.message)
+                  console.log(params);
+                  if(params.status == 500){
+                    $.notify({
+                      icon: 'flaticon-hands-1',
+                      title: 'Error interno',
+                      message: '',
+                    },{
+                      type: 'info',
+                      placement: {
+                        from: "bottom",
+                        align: "right"
+                      },
+                      time: 1000,
+                    });
+                  }
+                  $.notify({
+                    icon: 'flaticon-hands-1',
+                    title: params.responseJSON.message,
+                    message: '',
+                  },{
+                    type: 'warning',
+                    placement: {
+                      from: "bottom",
+                      align: "right"
+                    },
+                    time: 1000,
+                  });
                 }
             });
         }

@@ -146,10 +146,34 @@
             redirect: false,
             data:  $('#form-'+id).serialize(),
             success: function (response) {
-                toastr.success(response.message);
+                $.notify(
+                    {
+                        icon: 'flaticon-hands',
+                        title: response.message,
+                        message: '',
+                    },{
+                    type: 'info',
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
             },
             error: function(error){
-                toastr.warning(error.responseJSON.message)
+                $.notify(
+                    {
+                        icon: 'flaticon-hands-1',
+                        title: error.responseJSON.message,
+                        message: '',
+                    },{
+                    type: 'warning',
+                    placement: {
+                        from: "bottom",
+                        align: "right"
+                    },
+                    time: 1000,
+                });
             }
         })
 	}

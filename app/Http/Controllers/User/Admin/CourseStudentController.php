@@ -87,6 +87,10 @@ class CourseStudentController extends Controller
 
         viewExist($this->views->create);
 
+        if(Period::where('status','active')->get()->last() == null){
+            return 'No hay periodo activo.';
+        }
+
         $data = CourseSubject::where('status', 'active')
             ->with(['course','period', 'teacher', 'subject'])
             ->get();

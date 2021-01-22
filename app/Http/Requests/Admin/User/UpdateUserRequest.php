@@ -30,4 +30,20 @@ class UpdateUserRequest extends FormRequest
             'password'  => ['nullable', 'string' ]
         ];
     }
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'id.required'          => 'Se requiere id.',
+            'id.integer'           => 'Id debe ser numérico.',
+            'name.required'           => 'Se requiere el nombre.',
+            'name.string'           => 'Nombre debe ser textual.',
+            'password.required'           => 'Se require contraseña.',
+            'password.string'           => 'La contraseña debe ser textual.',
+        ];
+    }
 }
