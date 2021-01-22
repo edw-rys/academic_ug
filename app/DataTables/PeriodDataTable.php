@@ -33,7 +33,7 @@ class PeriodDataTable extends DataTable
      */
     public function query(Period $model): Builder
     {
-        return $model->newQuery()->orderBy('start_date','asc');
+        return $model->newQuery()->orderBy('start_date','desc');
     }
 
     /**
