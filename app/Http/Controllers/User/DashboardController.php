@@ -12,10 +12,10 @@ use Illuminate\Http\Request;
 class DashboardController extends Controller
 {
     /**
-     * 
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(){
-    	
+    	// Mostar vista y enviar datos según el rol
         return view('users.dashboard')->with('data', $this->getDataByRole());
     }
     /**
@@ -27,7 +27,7 @@ class DashboardController extends Controller
         $data = (object)[
             'period'=> Period::where('status','active')->get()->last()
         ];
-
+        // Obtener datos según el rol de estudiante
         if(auth()->user()->hasRole('student')){
             /**
              * Get subject
@@ -41,7 +41,7 @@ class DashboardController extends Controller
                 ->with('class_subject')
                 ->with('class_subject.comments')
                 ->get();
-            
+
             $data->subjects = $subjects;
             /**
              * Get classes
@@ -57,6 +57,7 @@ class DashboardController extends Controller
                 ->get();
             $data->routeinit = 'student';
         }
+        // Obtener datos según el rol de profesor
         if(auth()->user()->hasRole('teacher')){
             $subjects = CourseSubject::with('period')
                 ->with('course')
@@ -71,8 +72,9 @@ class DashboardController extends Controller
                 ->where('teacher_id', auth()->user()->id)
                 ->get();
             $data->subjects = $subjects;
-            $data->routeinit = 'teacher';   
+            $data->routeinit = 'teacher';
         }
+        // Obtener datos según el rol de administrador
         if(auth()->user()->hasRole('admin')){
             $data->routeinit = 'admin';
         }
@@ -85,7 +87,7 @@ class DashboardController extends Controller
     {
         $data = [];
         $periods = Period::where('status', '!=', 'deleted')->get();
-        # code...
+        // Obtener datos según el rol de administrador
         if(auth()->user()->hasRole('admin')){
             foreach ($periods as $key => $period) {
                 /**
@@ -99,7 +101,8 @@ class DashboardController extends Controller
 
                 array_push($data, $this->calcTotatPercentage($subjects, $period));
             }
-        }elseif (auth()->user()->hasRole('teacher')) {
+        }// Obtener datos según el rol de profesor
+        elseif (auth()->user()->hasRole('teacher')) {
             foreach ($periods as $key => $period) {
 
                 $subjects = CourseSubject::where('period_id', $period->id)
@@ -111,9 +114,9 @@ class DashboardController extends Controller
                     ->get();
                 array_push($data, $this->calcTotatPercentage($subjects, $period));
             }
-        }elseif (auth()->user()->hasRole('student')) {
+        }// Obtener datos según el rol de estudiante
+        elseif (auth()->user()->hasRole('student')) {
             foreach ($periods as $key => $period) {
-
                 $subjects = CourseSubject::where('period_id', $period->id)
                     ->has('course_student')
                     ->with(['class_subject'=>function($query) {
@@ -125,10 +128,15 @@ class DashboardController extends Controller
                 array_push($data, $this->calcTotatPercentage($subjects, $period));
             }
         }
-        return $data;  
+        return $data;
     }
 
-
+    /**
+     * Cálculo del procentaje de negatividad, positivismo y neutral de una frase
+     * @param $subjects
+     * @param $period
+     * @return object
+     */
     public function calcTotatPercentage($subjects, $period)
     {
         $negative_percent = 0;

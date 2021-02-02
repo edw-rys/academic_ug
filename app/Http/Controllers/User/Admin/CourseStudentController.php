@@ -56,7 +56,7 @@ class CourseStudentController extends Controller
      * @return mixed
      */
     public function index(CourseStudentDataTable $dataTable){
-        
+
         canAccessTo($this->permissions->access);
 
         viewExist($this->views->index);
@@ -67,7 +67,7 @@ class CourseStudentController extends Controller
 
         return $dataTable->render($this->views->index,
             [
-                'title' => $this->title, 
+                'title' => $this->title,
                 'singular_title'=> $this->singular_title,
                 'periods'   => $periods,
                 'action'    => $this->action
@@ -101,7 +101,7 @@ class CourseStudentController extends Controller
             ->with('subjects', $data);
     }
 
-    
+
     /**
      * Store new item into DB
      *
@@ -109,17 +109,13 @@ class CourseStudentController extends Controller
      * @return JsonResponse
      */
     public function store(CourseStudentRequest $request){
-        
         canAccessTo($this->permissions->create);
-
         $period = Period::where('status','active')->get()->last();
-
         $request->merge([
             'created_at' => Carbon::now(),
             'period_id' => $period->id,
             'status'    => 'active'
         ]);
-        
         $data = CourseStudent::where('student_id', $request->input('student_id'))
             ->where('course_subject_id', $request->input('course_subject_id'))
             ->first();
@@ -130,7 +126,6 @@ class CourseStudentController extends Controller
             ],400);
         }
         CourseStudent::create($request->all());
-
         return response()->json([
             'message' => 'Creado',
             'action'  => 'create'
@@ -154,12 +149,12 @@ class CourseStudentController extends Controller
             }])
             ->where('id', $id)
             ->first();
-        
+
             if($data === null){
                 // abort(404);
                 return 404;
             }
-    
+
         $negative_percent = 0;
         $positive_percent = 0;
         $neutra_percent = 0;
@@ -173,6 +168,7 @@ class CourseStudentController extends Controller
             }
         }
         $size = count($data->class_subject) * count($data->course_students);
+        $size = $size == 0? 1:$size;
         $negative_percent = ( $negative_percent/ $size)*100;
         $positive_percent = ( $positive_percent/ $size)*100;
         $neutra_percent =   ( $neutra_percent/ $size)*100;

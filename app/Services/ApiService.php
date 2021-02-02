@@ -45,15 +45,13 @@ class ApiService
                     'Content-Type'  => 'application/json'
                 ],
                 'json'    => [
-                    // 'user'          => config('app_buro.otp.user'),
+                    'user'          => config('app_buro.otp.user'),
                     'comment_id'    => $id,
-                    // 'password'      => config('app_buro.otp.password'),
+                    'password'      => config('app_buro.otp.password'),
                 ]
             ]);
 
             $response = json_decode($response->getBody()->getContents());
-            // var_dump($response);
-            // dd($response);
             return $response;
         } catch (\GuzzleHttp\Exception\ConnectException $e) {
             Log::error('guzzle_connect_exception', $data_for_log + ['message' => $e->getMessage()]);
@@ -61,11 +59,9 @@ class ApiService
         } catch (\GuzzleHttp\Exception\RequestException $e) {
             Log::error('guzzle_connection_timeout', $data_for_log + ['message' => $e->getMessage()]);
             return 'Conexión fallida.';
-            // return 'Petición OTP fallida.';
         } catch (\Exception $e) {
             Log::error('guzzle_error', $data_for_log + ['message' => $e->getMessage()]);
             return 'Conexión fallida.';
-            // return 'Guzzle';
         }
         return false;
     }

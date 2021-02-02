@@ -14,12 +14,17 @@ use App\Services\ApiService;
 class StudentController extends Controller
 {
 	private $apiService;
+
+    /**
+     * StudentController constructor.
+     * @param ApiService $apiService
+     */
 	public function __construct(ApiService $apiService) {
 		$this->apiService = $apiService;
 	}
 	/**
-	 * @return 
-	 */ 
+	 * @return
+	 */
     public function index()
     {
     	// Show periods and class
@@ -49,6 +54,11 @@ class StudentController extends Controller
 		return response()->json($data);
     }
 
+    /**
+     * Mostrar los datos de una clase que se le ha sido asignado
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function showClass($id)
     {
 		$data = CourseSubject::with('teacher')
@@ -73,7 +83,7 @@ class StudentController extends Controller
 			->where('id', $id)
 			->first();
 		// Get data subject class
-		
+
 		if($data === null){
 			abort(404);
 		}
@@ -82,19 +92,13 @@ class StudentController extends Controller
 		$neutra_percent = 0;
 		foreach ($data->class_subject as $key => $value) {
 			if(isset($value->comment) && $value->comment){
-				// dd($value->comment);
 				$negative_percent += $value->comment->negative;
 				$positive_percent += $value->comment->positive;
 				$neutra_percent += $value->comment->neutral;
 			}
 		}
 		$size = count($data->class_subject);
-		// dd(
-		// 	$size,
-		// 	$negative_percent,
-		// 	$positive_percent,
-		// 	$neutra_percent
-		// );
+        $size = $size == 0? 1:$size;
 		$negative_percent = ( $negative_percent/ $size)*100;
 		$positive_percent = ( $positive_percent/ $size)*100;
 		$neutra_percent =   ( $neutra_percent/ $size)*100;
@@ -125,7 +129,7 @@ class StudentController extends Controller
     	$comment = CommentStudentClass::where('student_id', auth()->user()->id)
     		->where('class_id', $request->input('class_id'))
 			->first();
-		
+
 		// Save comment
     	if($comment === null){
 			$comment = CommentStudentClass::create($request->all());
@@ -133,8 +137,10 @@ class StudentController extends Controller
 			$comment->comment = $request->input('comment');
     		$comment->save();
 		}
-		
-		// $res = $this->apiService->sendIdComment($comment->id);
+        /*
+         * Petición hacia la api web de python
+         */
+		$res = $this->apiService->sendIdComment($comment->id);
     	return response()->json([
     			'message'	=> 'Guardado',
     			'status'	=> 'error'

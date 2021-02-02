@@ -17,8 +17,7 @@ class StudentController extends Controller
 {
 
     /**
-     * Constructor
-     *
+     * StudentController constructor.
      */
     public function __construct()
     {
@@ -56,12 +55,12 @@ class StudentController extends Controller
      * @return mixed
      */
     public function index(StudentsDataTable $dataTable){
-        
+
         viewExist($this->views->index);
 
         return $dataTable->render($this->views->index,
             [
-                'title' => $this->title, 
+                'title' => $this->title,
                 'singular_title'=> $this->singular_title,
             ]
         );
@@ -92,7 +91,7 @@ class StudentController extends Controller
      * @return JsonResponse
      */
     public function store(StoreUserRequest $request){
-        
+
         canAccessTo($this->permissions->create);
 
         $request->merge([
@@ -118,7 +117,7 @@ class StudentController extends Controller
      * @return JsonResponse|View
      */
     public function edit($id){
-        
+
         canAccessTo($this->permissions->edit);
 
         viewExist($this->views->edit);
@@ -148,13 +147,13 @@ class StudentController extends Controller
         canAccessTo($this->permissions->edit);
 
         $user = User::find($request->input('id'));
-        
+
         if($user == null){
             return response()->json([
                 'message'    => 'Usuario no encontrado'
             ],404);
         }
-        
+
         $user->name = $request->input('name');
         $user->last_name = $request->input('last_name');
         if($request->input('password') !== null && !empty($request->input('password'))){
@@ -167,7 +166,7 @@ class StudentController extends Controller
             'action'  => 'edit'
         ]);
     }
-    
+
     /**
      * Destroy an item
      *
@@ -179,7 +178,7 @@ class StudentController extends Controller
         canAccessTo($this->permissions->delete);
 
         $user = User::find($id);
-        
+
         if($user == null){
             return response()->json([
                 'message'    => 'Usuario no encontrado'
@@ -207,7 +206,7 @@ class StudentController extends Controller
         canAccessTo($this->permissions->delete);
 
         $user = User::find($request->input('id'));
-        
+
         if($user == null){
             return response()->json([
                 'message'    => 'Usuario no encontrado'

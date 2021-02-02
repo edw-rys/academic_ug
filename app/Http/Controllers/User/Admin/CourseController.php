@@ -54,12 +54,12 @@ class CourseController extends Controller
      * @return mixed
      */
     public function index(CourseDataTable $dataTable){
-        
+
         viewExist($this->views->index);
 
         return $dataTable->render($this->views->index,
             [
-                'title' => $this->title, 
+                'title' => $this->title,
                 'singular_title'=> $this->singular_title,
             ]
         );
@@ -90,15 +90,11 @@ class CourseController extends Controller
      * @return JsonResponse
      */
     public function store(StoreCourseRequest $request){
-        
         canAccessTo($this->permissions->create);
-
         $request->merge([
             'created_at' => Carbon::now(),
         ]);
-
         Course::create($request->all());
-
         return response()->json([
             'message' => 'Creado',
             'action'  => 'create'
@@ -111,19 +107,14 @@ class CourseController extends Controller
      * @return JsonResponse|View
      */
     public function edit($id){
-        
         canAccessTo($this->permissions->edit);
-
         viewExist($this->views->edit);
-
         $item = Course::find($id);
-
         if($item == null){
             return response()->json([
                 'message'    => 'Curso no encontrado'
             ],404);
         }
-
         return view($this->views->edit)
             ->with('item', $item)
             ->with('route', 'admin.course.update')
@@ -137,26 +128,21 @@ class CourseController extends Controller
      * @return JsonResponse
      */
     public function update(UpdateCourseRequest $request){
-
         canAccessTo($this->permissions->edit);
-
         $item = Course::find($request->input('id'));
-        
         if($item == null){
             return response()->json([
                 'message'    => 'Curso no encontrado'
             ],404);
         }
-        
         $item->name = $request->input('name');
         $item->save();
-
         return response()->json([
             'message' => 'Editado',
             'action'  => 'edit'
         ]);
     }
-    
+
     /**
      * Destroy an item
      *
@@ -164,20 +150,15 @@ class CourseController extends Controller
      * @return JsonResponse
      */
     public function destroy(DestroyCourseRequest $request, $id){
-
         canAccessTo($this->permissions->delete);
-
         $item = Course::find($id);
-        
         if($item == null){
             return response()->json([
                 'message'    => 'Curso no encontrado'
             ],404);
         }
-
         $item->status = 'deleted';
         $item->save();
-
         return response()->json([
             'message' => 'Eliminado',
             'action'  => 'destroy',
@@ -186,26 +167,21 @@ class CourseController extends Controller
     }
 
     /**
-     * Destroy an item
+     * Restore an item
      *
      * @param RestoreCourseRequest $request
      * @return JsonResponse
      */
     public function restore(RestoreCourseRequest $request){
-
         canAccessTo($this->permissions->delete);
-
         $item = Course::find($request->input('id'));
-        
         if($item == null){
             return response()->json([
                 'message'    => 'Curso no encontrado'
             ],404);
         }
-
         $item->status = 'active';
         $item->save();
-
         return response()->json([
             'message' => 'Restaurado',
             'action'  => 'restore',

@@ -55,7 +55,7 @@ class CourseSubjectController extends Controller
      * @return mixed
      */
     public function index(CouseSubjectDataTable $dataTable){
-        
+
         $periods = Period::where('status', '!=' ,'deleted')
     		->orderBy('id','desc')
     		->get();
@@ -64,7 +64,7 @@ class CourseSubjectController extends Controller
 
         return $dataTable->render($this->views->index,
             [
-                'title' => $this->title, 
+                'title' => $this->title,
                 'periods'   => $periods,
                 'action'    => $this->action,
                 'singular_title'=> $this->singular_title,
@@ -103,11 +103,9 @@ class CourseSubjectController extends Controller
      * @return JsonResponse
      */
     public function store(StoreCouseSubjectRequest $request){
-        
         canAccessTo($this->permissions->create);
-
         $period = Period::where('status','active')->get()->last();
-
+        // Asignación en el periodo vigente
         if($period == null){
             return response()->json([
                 'message' => 'No se puede asignar.',
@@ -119,7 +117,6 @@ class CourseSubjectController extends Controller
             'period_id' => $period->id,
             'status'    => 'active'
         ]);
-
         $data = CourseSubject::where('teacher_id', $request->input('teacher_id'))
             ->where('subject_id', $request->input('subject_id'))
             ->where('course_id', $request->input('course_id'))
@@ -130,9 +127,7 @@ class CourseSubjectController extends Controller
                 'action'  => 'create'
             ],402);
         }
-        
         CourseSubject::create($request->all());
-
         return response()->json([
             'message' => 'Creado',
             'action'  => 'create'
@@ -157,5 +152,5 @@ class CourseSubjectController extends Controller
                 ->get()
         );
     }
-    
+
 }

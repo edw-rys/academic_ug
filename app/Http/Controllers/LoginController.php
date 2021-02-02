@@ -12,11 +12,16 @@ class LoginController extends Controller
         return view('users.login');
     }
 
+    /**
+     * Método de inicio de sesión
+     * @param Request $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function login(Request $request){
-        //obtener credenciales
+        // obtener credenciales
         $credentials = $request->only('email','password');
         $user = User::where('email', $request->input('email'))->first();
-        //logear
+        // logear
         if($user){
             if($user->status != 'active'){
                 return redirect()->route('auth.login.show')
@@ -30,7 +35,11 @@ class LoginController extends Controller
         return redirect()->route('auth.login.show')
             ->with('errors',['Datos Incorrectos']);
     }
-    //Elimina sesion
+
+    /**
+     * Elimina sesion
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function logout(){
         Auth::logout();
         return redirect()->route('auth.login.show');

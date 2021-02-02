@@ -13,10 +13,10 @@ use Illuminate\Http\Request;
 
 class AcademicController extends Controller
 {
-    
+
     /**
 	 * @return view
-	 */ 
+	 */
     public function index()
     {
     	// Show periods and class
@@ -45,6 +45,7 @@ class AcademicController extends Controller
 		return response()->json($data);
     }
     /**
+     * Mostrar los datos de una clase que se le ha sido asignado
      * @param $id
      * @return view
      */
@@ -65,8 +66,6 @@ class AcademicController extends Controller
 			->where('id', $id)
 			->first();
 
-
-
 		if($data === null){
 			abort(404);
 		}
@@ -84,6 +83,7 @@ class AcademicController extends Controller
 			}
 		}
 		$size = count($data->class_subject) * count($data->course_students);
+        $size = $size == 0? 1:$size;
 		$negative_percent = ( $negative_percent/ $size)*100;
 		$positive_percent = ( $positive_percent/ $size)*100;
 		$neutra_percent =   ( $neutra_percent/ $size)*100;
@@ -103,7 +103,7 @@ class AcademicController extends Controller
 		$values = $request->input('qualification');
 		if( count($id_arr) == count($values)){
 			// Continue
-			for ($i=0; $i < count($id_arr) ; $i++) { 
+			for ($i=0; $i < count($id_arr) ; $i++) {
 				$data = CourseStudent::find($id_arr[$i]);
 				if($data != null){
 					$data->negative_percentage = $values[$i];
@@ -153,5 +153,5 @@ class AcademicController extends Controller
 		}
 		return redirect()->back();
 	}
-    
+
 }
