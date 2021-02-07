@@ -120,11 +120,14 @@
               createGrapicth(
                 periods,[
                   // Neg
+                //   addDataGraph('Negativismo', '#fdaf4b','rgba(253, 175, 75, 0.6)','rgba(253, 175, 75, 0.4)', '#fdaf4b',neg), 
                   addDataGraph('Negativismo', '#f3545d','rgba(243, 84, 93, 0.6)','rgba(243, 84, 93, 0.4)', '#f3545d',neg), 
                   // Pos
-                  addDataGraph('Positivos', '#fdaf4b','rgba(253, 175, 75, 0.6)','rgba(253, 175, 75, 0.4)', '#fdaf4b',pos), 
+                  addDataGraph('Positivos', '#177dff','rgba(23, 125, 255, 0.6)','rgba(23, 125, 255, 0.4)', '#177dff',pos), 
+                //   addDataGraph('Positivos', '#fdaf4b','rgba(253, 175, 75, 0.6)','rgba(253, 175, 75, 0.4)', '#fdaf4b',pos), 
                   // Neu
-                  addDataGraph('Neutral', '#177dff','rgba(23, 125, 255, 0.6)','rgba(23, 125, 255, 0.4)', '#177dff',neu)
+                  addDataGraph('Neutral', '#fdaf4b','rgba(253, 175, 75, 0.6)','rgba(253, 175, 75, 0.4)', '#fdaf4b',neu)
+                //   addDataGraph('Neutral', '#177dff','rgba(23, 125, 255, 0.6)','rgba(23, 125, 255, 0.4)', '#177dff',neu)
                 ]
               );
             },
