@@ -18,7 +18,7 @@
         <div class="row">
           <div class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
             <div class="login-brand flex flex-center" style="background: linear-gradient(-45deg, #E81515, #06418F) !important; padding: 10px 0">
-              <img src="{{asset('img/logo_no_a.png')}}" alt="logo" width="300" class="">
+              <img src="{{asset('img/logo.png')}}" alt="logo" width="300" class="">
               {{-- <div style="background: #06418F; border-radius: 50%; width: 150px; height: 150px;"> --}}
                 {{-- <img src="{{asset('img/login.png')}}" alt="logo" width="120" class="shadow-light"> --}}
               {{-- </div> --}}
