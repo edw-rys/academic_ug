@@ -5,7 +5,8 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body flex">
-            	<select style="width: 50%; margin:auto" class="select2" id="period" onchange="updateClass(this.value)">
+            	<span>Periodo: </span>
+				<select style="width: 50%; margin:auto" class="select2" id="period" onchange="updateClass(this.value)">
                     @foreach($periods as $period)
                         <option value="{{ $period->id }}">{{ $period->name }}</option>
                     @endforeach

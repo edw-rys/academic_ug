@@ -4,6 +4,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
+            <span>Periodo: </span>
             <div class="card-body ">
             	<select style="width: 50%" class="select2 center" id="period" onchange="updateDataTable(this.value)">
                     @foreach($periods as $period)

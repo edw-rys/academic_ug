@@ -133,7 +133,7 @@ class CourseStudentDataTable extends DataTable
                 return $html;
             })
             ->addColumn('show_statistics', function($query) use ($route){
-                return edit_action($route.'.statistics', $query->id, 'Mostrar', 'btn btn-warning');
+                return edit_action($route.'.statistics', $query->id, 'Mostrar', 'btn btn-danger');
             })
             ->escapeColumns([]);
     }

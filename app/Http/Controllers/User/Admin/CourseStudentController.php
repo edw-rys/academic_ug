@@ -21,7 +21,7 @@ class CourseStudentController extends Controller
      */
     public function __construct()
     {
-        $this->title = 'Matrículas';
+        $this->title = 'Asignación de Estudiantes';
         $this->singular_title = 'Matricula';
         $this->action = 'course_student';
         $this->permissions  = (object) [

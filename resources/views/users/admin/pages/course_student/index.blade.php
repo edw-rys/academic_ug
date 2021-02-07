@@ -5,6 +5,7 @@
     <div class="col-md-12">
         <div class="card">
             <div class="card-body ">
+                <span>Periodo: </span>
             	<select style="width: 50%" class="select2 center" id="period" onchange="updateDataTable(this.value)">
                     @foreach($periods as $period)
                         <option value="{{ $period->id }}">{{ $period->name }}</option>
@@ -19,7 +20,7 @@
                 <div class="row">
                     <div class="col-md-12 flex" style="margin: 20px">
                         <div class="" style="margin: auto">
-                            <h2 class="text-center">{{ $title ?? 'Matrículas'}}</h2>
+                            <h2 class="text-center">{{ $title ?? 'Asignación de Estudiantes'}}</h2>
                             {{-- <a href="@if(route_exists($route)) {{ route($route) }} @endif" class="btn btn-primary">Nuevo</a> --}}
                         </div>
                     </div>
