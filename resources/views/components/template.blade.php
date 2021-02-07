@@ -174,7 +174,7 @@
                         <div class="avatar-lg"><img src="{{ asset('img/profile.jpg') }}" alt="image profile" class="avatar-img rounded"></div>
                         <div class="u-text">
                           <h4>{{ auth()->user()->name }} {{ auth()->user()->last_name }}</h4>
-                          <p class="text-muted">{{ auth()->user()->email }}</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">Ver Perfil</a>
+                          {{-- <p class="text-muted">{{ auth()->user()->email }}</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">Ver Perfil</a> --}}
                         </div>
                       </div>
                     </li>
