@@ -127,7 +127,7 @@
         </footer>
     </div> --}}
     <div class="wrapper">
-      <div class="main-header">
+      <div class="main-header" style="background: #1269db !important">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="blue">
           
