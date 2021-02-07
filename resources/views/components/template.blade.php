@@ -127,9 +127,9 @@
         </footer>
     </div> --}}
     <div class="wrapper">
-      <div class="main-header" style="background: #E81515 !important">
+      <div class="main-header" style="background: linear-gradient(-45deg, #E81515, #06418F) !important;">
         <!-- Logo Header -->
-        <div class="logo-header" data-background-color="blue">
+        <div class="logo-header" >
           
           <a href="{{ route('user.dashboard.index')}}" class="logo">
             <img src="{{ asset('img/logo.png') }}" alt="navbar brand" class="navbar-brand" style="width: 180px">
@@ -149,7 +149,7 @@
         <!-- End Logo Header -->
   
         <!-- Navbar Header -->
-        <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+        <nav class="navbar navbar-header navbar-expand-lg" >
           
           <div class="container-fluid">
             
