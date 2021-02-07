@@ -7,7 +7,7 @@
     <title>Atlantis Low</title>
 
     @yield('styles_cdn')
-
+    <link rel="icon" type="image/gif" href="{{ asset('img/icon.ico')}}">
     <!-- General CSS Files -->
     {{--
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
@@ -127,7 +127,7 @@
         </footer>
     </div> --}}
     <div class="wrapper">
-      <div class="main-header" style="background: #1269db !important">
+      <div class="main-header" style="background: #E81515 !important">
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="blue">
           

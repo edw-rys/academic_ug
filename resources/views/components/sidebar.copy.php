@@ -1,7 +1,7 @@
 <div class="main-sidebar">
   <aside id="sidebar-wrapper">
     <div class="sidebar-brand">
-      <a href="{{ route('user.dashboard.index')}}">Academic UG</a>
+      <a href="{{ route('user.dashboard.index')}}">AtlantisLow</a>
     </div>
     <div class="sidebar-brand sidebar-brand-sm">
       <a href="{{ route('user.dashboard.index')}}">UG</a>
