@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Academic UG</title>
+    <title>Atlantis Low</title>
 
     @yield('styles_cdn')
 
@@ -132,7 +132,7 @@
         <div class="logo-header" data-background-color="blue">
           
           <a href="{{ route('user.dashboard.index')}}" class="logo">
-            <img src="{{ asset('img/logo.svg') }}" alt="navbar brand" class="navbar-brand">
+            <img src="{{ asset('img/logo.png') }}" alt="navbar brand" class="navbar-brand" style="width: 180px">
           </a>
           <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
