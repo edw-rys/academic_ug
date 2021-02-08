@@ -19,6 +19,9 @@ class LoginController extends Controller
      */
     public function login(Request $request){
         // obtener credenciales
+        $request->merge([
+            'email' => trim ( $request->input('email'))
+        ]);
         $credentials = $request->only('email','password');
         $user = User::where('email', $request->input('email'))->first();
         // logear

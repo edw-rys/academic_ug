@@ -164,7 +164,7 @@ trait DataTableBase
 
         return [
             array_merge($length1, [-1]),
-            array_merge($length2, [trans('global.all')])
+            array_merge($length2, ['Todos'])
         ];
     }
 
