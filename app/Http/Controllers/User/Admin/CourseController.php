@@ -79,7 +79,8 @@ class CourseController extends Controller
 
         return view($this->views->create)
             ->with('route', 'admin.course.store')
-            ->with('action', $this->action);
+            ->with('action', $this->action)
+            ->with('singular_title', $this->singular_title);
     }
 
      // TODO

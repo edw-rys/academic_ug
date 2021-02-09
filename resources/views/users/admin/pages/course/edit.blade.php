@@ -6,7 +6,7 @@
                 @csrf
 
                 <div class="card-header">
-                    <h3>Crear {{ $singular_title ?? 'usuario' }}</h3>
+                    <h3>Crear {{ $singular_title ?? 'Curso' }}</h3>
                 </div>
                 <input type="hidden" name="id" value="{{ $item->id }}">
                 <div class="card-body">

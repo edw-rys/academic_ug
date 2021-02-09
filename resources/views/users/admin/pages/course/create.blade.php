@@ -11,7 +11,7 @@
 
                 <div class="card-body">
                     <div class="form-group @error('name') {{ 'is-invalid' }} @enderror">
-                        <label for="name">Nombres</label>
+                        <label for="name">Nombre</label>
                         <input type="text" id="name" name="name" class="form-control @error('name') {{ 'is-invalid' }} @enderror" value="{{ old('name') }}"  autofocus>
                         <p id="err-name" class="hidden helper-block err-fields"></p>
                     </div>
