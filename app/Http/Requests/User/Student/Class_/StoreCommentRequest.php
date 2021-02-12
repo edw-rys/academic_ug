@@ -43,7 +43,7 @@ class StoreCommentRequest extends FormRequest
             'class_id.numeric'          => 'Clase incorrecta.',
             'class_student_id.required' => '.',
             'class_student_id.numeric'  => '',
-            'comment.min'               => 'Escriba al menos 3 letras.'
+            'comment.min'               => 'Escriba al menos 3 palabras.'
         ];
     }
 }
