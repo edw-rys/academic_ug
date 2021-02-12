@@ -121,7 +121,7 @@ return [
 		'date_picker'	=> 'dd-mm-yyyy'
 	],
 	'api'		=> [
-		'url'		=> env('APP_API','http://127.0.0.1:3000'),
+		'url'		=> env('APP_API','httpS://api.atlantislow.com'),
 		'comment'	=> 'api/comment/analize',
         'timeout'	=> 10,
 	],
