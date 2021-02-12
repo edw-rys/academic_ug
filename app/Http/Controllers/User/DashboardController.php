@@ -4,6 +4,7 @@ namespace App\Http\Controllers\USer;
 
 use App\Http\Controllers\Controller;
 use App\Models\ClassSubject;
+use App\Models\CourseStudent;
 use App\Models\CourseSubject;
 use App\Models\Period;
 use Illuminate\Http\Request;
@@ -86,9 +87,9 @@ class DashboardController extends Controller
     public function getDataGraphic()
     {
         $data = [];
-        $periods = Period::where('status', '!=', 'deleted')->get();
         // Obtener datos según el rol de administrador
         if(auth()->user()->hasRole('admin')){
+            $periods = Period::where('status', '!=', 'deleted')->get();
             foreach ($periods as $key => $period) {
                 /**
                  * Get comments
@@ -103,6 +104,11 @@ class DashboardController extends Controller
             }
         }// Obtener datos según el rol de profesor
         elseif (auth()->user()->hasRole('teacher')) {
+            $periods_ids = CourseSubject::select('period_id')->where('teacher_id', auth()->user()->id)->groupBy('period_id')->get();
+            $periods = Period::where('status', '!=', 'deleted')->whereIn('id', $periods_ids->map(function($period){
+                return $period->period_id;
+            })->toArray())->get();
+            // dd($periods[0]);
             foreach ($periods as $key => $period) {
 
                 $subjects = CourseSubject::where('period_id', $period->id)
@@ -116,6 +122,10 @@ class DashboardController extends Controller
             }
         }// Obtener datos según el rol de estudiante
         elseif (auth()->user()->hasRole('student')) {
+            $periods_ids = CourseStudent::select('period_id')->where('student_id', auth()->user()->id)->groupBy('period_id')->get();
+            $periods = Period::where('status', '!=', 'deleted')->whereIn('id', $periods_ids->map(function($period){
+                return $period->period_id;
+            })->toArray())->get();
             foreach ($periods as $key => $period) {
                 $subjects = CourseSubject::where('period_id', $period->id)
                     ->has('course_student')

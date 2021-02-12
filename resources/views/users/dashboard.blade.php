@@ -35,7 +35,7 @@
                 <div class="card">
                     <div class="card-header">
                         <div class="card-head-row">
-                            <div class="card-title">Estadísticas</div>
+                            <div class="card-title">Estadísticas por periodo</div>
                         </div>
                     </div>
                     <div class="card-body">
@@ -48,7 +48,7 @@
             </div>
             {{-- Teachers --}}
             @if (auth()->user()->hasRole('student') || auth()->user()->hasRole('teacher'))
-              <div class="col-md-4">
+              <div class="col-md-6 col-xs-4">
                   <div class="card">
                       <div class="card-body">
                           <div class="card-title fw-mediumbold">Asignaturas del periodo {{$data->period->name}}</div>
@@ -62,7 +62,7 @@
                                       <div class="username">{{ $item->subject->name}}</div>
                                       <div class="status">{{ $item->course->name}}</div>
                                   </div>
-                                  <a href="{{ route($data->routeinit.'.class.show', $item->id)}}" class="btn btn-icon btn-primary btn-round btn-xs">
+                                  <a href="{{ route($data->routeinit.'.class.show', $item->id)}}" class="btn btn-icon btn-primary btn-round btn-xs pt-0">
                                       Ir
                                   </a>
                               </div>
@@ -76,7 +76,7 @@
               <div class="col-md-6">
                   <div class="card full-height">
                       <div class="card-header">
-                          <div class="card-title">Clases</div>
+                          <div class="card-title">Últimas Clases</div>
                       </div>
                       <div class="card-body">
                           <ol class="activity-feed">

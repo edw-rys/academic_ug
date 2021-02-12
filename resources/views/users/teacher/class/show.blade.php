@@ -94,17 +94,19 @@
                         <button class="btn btn-success" type="submit">Crear</button>
                     </div>
                 </form>
-                <form action="{{ route('teacher.class.masscreate') }}" method="post">
-                    <input type="hidden" name="course_subject_id" value="{{ $data->id }}">
-                    @csrf
-                    <div class="form-group">
-                        <label for="">Nueva clase (creación masiva)</label>
-                        <textarea name="name" id="" cols="30" rows="10" required class="form-control"></textarea>
-                    </div>
-                    <div class="flex flex-center">
-                        <button class="btn btn-success" type="submit">Crear</button>
-                    </div>
-                </form>
+                @if (config('app.env') == 'local')
+                    <form action="{{ route('teacher.class.masscreate') }}" method="post">
+                        <input type="hidden" name="course_subject_id" value="{{ $data->id }}">
+                        @csrf
+                        <div class="form-group">
+                            <label for="">Nueva clase (creación masiva)</label>
+                            <textarea name="name" id="" cols="30" rows="10" required class="form-control"></textarea>
+                        </div>
+                        <div class="flex flex-center">
+                            <button class="btn btn-success" type="submit">Crear</button>
+                        </div>
+                    </form>
+                @endif
             </div>
         </div>
     </div>
