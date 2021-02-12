@@ -121,7 +121,7 @@ class CourseStudentController extends Controller
             ->first();
         if($data !== null){
             return response()->json([
-                'message' => 'No se puede asignar.',
+                'message' => 'No se puede asignar, ya ha sido asignado proviamente.',
                 'action'  => 'create'
             ],400);
         }

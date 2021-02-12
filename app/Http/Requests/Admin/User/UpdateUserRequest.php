@@ -25,9 +25,9 @@ class UpdateUserRequest extends FormRequest
     {
         return [
             'id'        => ['required', 'integer'],
-            'name'      => ['required', 'string' ],
-            'last_name' => ['required', 'string' ],
-            'password'  => ['nullable', 'string' ]
+            'name'      => ['required', 'string','min:3' ],
+            'last_name' => ['required', 'string', ],
+            'password'  => ['nullable', 'string','min:3' ]
         ];
     }
     /**
@@ -44,6 +44,8 @@ class UpdateUserRequest extends FormRequest
             'name.string'           => 'Nombre debe ser textual.',
             'password.required'           => 'Se require contraseña.',
             'password.string'           => 'La contraseña debe ser textual.',
+            'last_name.min'               => 'Escriba al menos 3 palabras en el apellido.',
+            'name.min'               => 'Escriba al menos 3 palabras en el nombre.'
         ];
     }
 }

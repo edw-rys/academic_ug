@@ -26,9 +26,9 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => ['required', 'string' ],
+            'name'      => ['required', 'string', 'min:3'],
             'email'     => ['required', 'string', 'email', Rule::unique('users', 'email')->where('status', 'active')],
-            'last_name' => ['required', 'string' ],
+            'last_name' => ['required', 'string', 'min:3'],
         ];
     }
     /**
@@ -45,6 +45,8 @@ class StoreUserRequest extends FormRequest
             'name.string'           => 'Nombre debe ser textual.',
             'last_name.required'           => 'Se require el apellido.',
             'last_name.string'           => 'El apellido debe ser textual.',
+            'last_name.min'               => 'Escriba al menos 3 palabras en el apellido.',
+            'name.min'               => 'Escriba al menos 3 palabras en el nombre.'
         ];
     }
 }

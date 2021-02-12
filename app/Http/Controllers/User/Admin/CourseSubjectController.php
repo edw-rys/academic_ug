@@ -108,7 +108,7 @@ class CourseSubjectController extends Controller
         // Asignación en el periodo vigente
         if($period == null){
             return response()->json([
-                'message' => 'No se puede asignar.',
+                'message' => 'No se puede asignar, ya ha sido asignado previamente.',
                 'action'  => 'create'
             ],404);
         }
@@ -123,7 +123,7 @@ class CourseSubjectController extends Controller
             ->first();
         if($data !== null){
             return response()->json([
-                'message' => 'No se puede asignar.',
+                'message' => 'No se puede asignar, ya ha sido asignado previamente.',
                 'action'  => 'create'
             ],402);
         }

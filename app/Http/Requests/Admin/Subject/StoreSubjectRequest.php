@@ -24,7 +24,7 @@ class StoreSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'  => ['required', 'string'],
+            'name'  => ['required', 'string', 'min:3'],
             //
         ];
     }
@@ -39,6 +39,7 @@ class StoreSubjectRequest extends FormRequest
         return [
             'name.required'           => 'Se requiere el nombre.',
             'name.string'           => 'Nombre debe ser textual.',
+            'name.min'               => 'Escriba al menos 3 palabras.'
         ];
     }
 }

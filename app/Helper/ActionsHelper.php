@@ -73,9 +73,16 @@ if (! function_exists('dropdown_action')) {
             if (have_permission('inactive_'.$action,  auth()->user()->id)) {
                 $dropdown .= inactive_action($route . '.inactive', $id);
             }
+            if($route == 'admin.admin'){
+                // dd($id, $protected );
+                if ($id != $auth_id && !$protected && have_permission('delete_'.$action,  auth()->user()->id)) {
+                    $dropdown .= delete_action($route . '.destroy', $id, $action);
+                }
+            }else{
 
-            if ($auth_id !== $id && ! $protected && have_permission('delete_'.$action,  auth()->user()->id)) {
-                $dropdown .= delete_action($route . '.destroy', $id, $action);
+                if (!$protected && have_permission('delete_'.$action,  auth()->user()->id)) {
+                    $dropdown .= delete_action($route . '.destroy', $id, $action);
+                }
             }
         }
         // Inactive

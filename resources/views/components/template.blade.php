@@ -77,6 +77,7 @@
         window.jQuery || document.write('<script src="{{ asset('js/jquery.min.js') }}"><\/script>')
 
     </script>
+    <script src="{{ asset('js/errors.js')}}"></script>
 </head>
 
 <body>

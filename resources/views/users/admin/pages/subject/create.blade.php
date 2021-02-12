@@ -68,26 +68,7 @@
                 // });
                 
                 if(error.responseJSON.errors){
-                    var dataKeys = Object.keys(error.responseJSON.errors);
-                    var dataValues = Object.values(error.responseJSON.errors);
-                    for (let index = 0; index < dataKeys.length; index++) {
-                        $('#err-'+dataKeys[index])
-                            .text(dataValues[index])
-                            .removeClass('hidden');
-                        $.notify(
-                            {
-                                icon: 'flaticon-hands-1',
-                                title: dataValues[index],
-                                message: '',
-                            },{
-                            type: 'warning',
-                            placement: {
-                                from: "bottom",
-                                align: "right"
-                            },
-                            time: 1000,
-                        });
-                    }
+                    showErrors(error);
                 }
             },
         });
