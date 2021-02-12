@@ -62,20 +62,7 @@
                 document.getElementById("formSave").reset();
                 window.LaravelDataTables["{{$action}}-table"].draw()
             },
-            error: function (error) {
-                $.notify(
-                    {
-                        icon: 'flaticon-hands-1',
-                        title: error.responseJSON.message,
-                        message: '',
-                    },{
-                    type: 'warning',
-                    placement: {
-                        from: "bottom",
-                        align: "right"
-                    },
-                    time: 1000,
-                });
+            error: function (error) {               
                 if(error.responseJSON.errors){
                     var dataKeys = Object.keys(error.responseJSON.errors);
                     var dataValues = Object.values(error.responseJSON.errors);
@@ -83,7 +70,19 @@
                         $('#err-'+dataKeys[index])
                             .text(dataValues[index])
                             .removeClass('hidden');
-                        
+                            $.notify(
+                                {
+                                    icon: 'flaticon-hands-1',
+                                    title: dataValues[index],
+                                    message: '',
+                                },{
+                                type: 'warning',
+                                placement: {
+                                    from: "bottom",
+                                    align: "right"
+                                },
+                                time: 1000,
+                            });
                     }
                 }
             },

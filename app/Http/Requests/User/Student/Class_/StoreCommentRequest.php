@@ -24,7 +24,7 @@ class StoreCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'comment'  => ['required', 'string'],
+            'comment'  => ['required', 'string', 'min:3'],
             'class_id'  => ['required', 'integer'],
             'class_student_id' => ['required', 'integer'],
         ];
@@ -43,6 +43,7 @@ class StoreCommentRequest extends FormRequest
             'class_id.numeric'          => 'Clase incorrecta.',
             'class_student_id.required' => '.',
             'class_student_id.numeric'  => '',
+            'comment.min'               => 'Escriba al menos 3 letras.'
         ];
     }
 }
