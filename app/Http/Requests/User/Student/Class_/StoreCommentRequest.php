@@ -2,9 +2,9 @@
 
 namespace App\Http\Requests\User\Student\Class_;
 
+use App\Models\ClassSubject;
 use App\Models\CourseStudent;
 use App\Rules\Exist;
-use ClassSubject;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCommentRequest extends FormRequest
@@ -28,7 +28,7 @@ class StoreCommentRequest extends FormRequest
     {
         return [
             'comment'  => ['required', 'string', 'min:3'],
-            'class_id'  => ['required', 'integer', new Exist(new ClassSubject)],
+            'class_id'  => ['required', 'integer', new Exist(new ClassSubject())],
             'class_student_id' => ['required', 'integer', new Exist(new CourseStudent())],
         ];
     }
