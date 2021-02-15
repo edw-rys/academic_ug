@@ -125,6 +125,8 @@ class CourseStudentController extends Controller
         ]);
         $data = CourseStudent::where('student_id', $request->input('student_id'))
             ->where('course_subject_id', $request->input('course_subject_id'))
+            ->where('period_id', $period->id)
+            ->where('status', 'active')
             ->first();
         if($data !== null){
             return response()->json([

@@ -121,10 +121,10 @@ class CourseSubjectController extends Controller
         $data = CourseSubject::where('teacher_id', $request->input('teacher_id'))
             ->where('subject_id', $request->input('subject_id'))
             ->where('course_id', $request->input('course_id'))
+            ->where('period_id', $period->id)
             ->where('status', 'active')
             ->first();
 
-        dd($data);
         if($data !== null){
             return response()->json([
                 'message' => 'No se puede asignar, ya ha sido asignado previamente.',
