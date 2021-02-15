@@ -57,6 +57,7 @@ class CourseSubjectController extends Controller
     public function index(CouseSubjectDataTable $dataTable){
 
         $periods = Period::where('status', '!=' ,'deleted')
+            ->where('status', '!=' ,'pending')
     		->orderBy('id','desc')
     		->get();
 

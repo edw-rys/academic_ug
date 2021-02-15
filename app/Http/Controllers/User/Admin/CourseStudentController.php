@@ -62,6 +62,7 @@ class CourseStudentController extends Controller
         viewExist($this->views->index);
 
         $periods = Period::where('status', '!=' ,'deleted')
+            ->where('status', '!=' ,'pending')
     		->orderBy('id','desc')
     		->get();
 
