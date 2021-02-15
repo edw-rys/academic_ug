@@ -53,13 +53,7 @@ if (! function_exists('dropdown_action')) {
 
         // IS STATUS...?
         // Yes
-        if ($status === 1) {
-            if (have_permission('edit_'.$action,  auth()->user()->id)) {
-                $dropdown .= edit_action($route . '.edit', $id);
-            }
-        }
-        // No
-        elseif ($status === 0) {
+        if ($status !== 'finalized') {
             if (have_permission('edit_'.$action,  auth()->user()->id)) {
                 $dropdown .= edit_action($route . '.edit', $id);
             }
