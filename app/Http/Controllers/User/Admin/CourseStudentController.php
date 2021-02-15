@@ -112,6 +112,12 @@ class CourseStudentController extends Controller
     public function store(CourseStudentRequest $request){
         canAccessTo($this->permissions->create);
         $period = Period::where('status','active')->get()->last();
+        if($period == null){
+            return response()->json([
+                'message' => 'No se puede asignar, no hay periodo activo.',
+                'action'  => 'create'
+            ],404);
+        }
         $request->merge([
             'created_at' => Carbon::now(),
             'period_id' => $period->id,
