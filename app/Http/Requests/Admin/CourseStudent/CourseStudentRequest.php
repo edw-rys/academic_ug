@@ -28,7 +28,7 @@ class CourseStudentRequest extends FormRequest
     {
         return [
             'course_subject_id' => ['required', 'integer', new Exist(new CourseStudent())],
-            'student_id' => ['required', 'integer', new User()],
+            'student_id' => ['required', 'integer', new Exist(new User())],
         ];
     }
     /**
