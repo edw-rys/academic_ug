@@ -2,6 +2,9 @@
 
 namespace App\Http\Requests\Admin\CourseStudent;
 
+use App\Models\CourseStudent;
+use App\Models\User;
+use App\Rules\Exist;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CourseStudentRequest extends FormRequest
@@ -24,8 +27,8 @@ class CourseStudentRequest extends FormRequest
     public function rules()
     {
         return [
-            'course_subject_id' => ['required', 'integer'],
-            'student_id' => ['required', 'integer'],
+            'course_subject_id' => ['required', 'integer', new Exist(new CourseStudent())],
+            'student_id' => ['required', 'integer', new User()],
         ];
     }
     /**

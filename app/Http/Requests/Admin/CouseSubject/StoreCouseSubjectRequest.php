@@ -2,6 +2,10 @@
 
 namespace App\Http\Requests\Admin\CouseSubject;
 
+use App\Models\Course;
+use App\Models\Subject;
+use App\Models\User;
+use App\Rules\Exist;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreCouseSubjectRequest extends FormRequest
@@ -24,9 +28,9 @@ class StoreCouseSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            'teacher_id' => ['required', 'integer'],
-            'course_id'  => ['required', 'integer'],
-            'subject_id' => ['required', 'integer'],
+            'teacher_id' => ['required', 'integer', new Exist(new User())],
+            'course_id'  => ['required', 'integer', new Exist(new Course())],
+            'subject_id' => ['required', 'integer', new Exist(new Subject())],
         ];
     }
     /**
