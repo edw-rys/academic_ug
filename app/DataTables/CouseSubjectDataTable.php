@@ -102,10 +102,10 @@ class CouseSubjectDataTable extends DataTable
                 return '';
             })
             ->addColumn('course', static function ($query) {
-                return $query->course->name;
+                return $query->course ? $query->course->name : '';
             })
             ->addColumn('period', static function ($query) {
-                return Carbon::create($query->period->start_date)->format(config('app_academic.setting.date_format_show')).' - '. Carbon::create($query->period->end_date)->format(config('app_academic.setting.date_format_show'));
+                return $query->period ? Carbon::create($query->period->start_date)->format(config('app_academic.setting.date_format_show')).' - '. Carbon::create($query->period->end_date)->format(config('app_academic.setting.date_format_show')) : '';
             })
             ->addColumn('subjects', static function ($query) use($period) {
                 $list = CourseSubject::where('course_id', $query->course_id)

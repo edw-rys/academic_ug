@@ -107,13 +107,13 @@ class CourseStudentDataTable extends DataTable
                 return $query->course->name .'<br>'.Carbon::create($query->period->start_date)->format(config('app_academic.setting.date_format_show')).' - '. Carbon::create($query->period->end_date)->format(config('app_academic.setting.date_format_show'));
             })
             ->addColumn('period', static function ($query) {
-                return Carbon::create($query->period->start_date)->format(config('app_academic.setting.date_format_show')).' - '. Carbon::create($query->period->end_date)->format(config('app_academic.setting.date_format_show'));
+                return $query->period ? Carbon::create($query->period->start_date)->format(config('app_academic.setting.date_format_show')).' - '. Carbon::create($query->period->end_date)->format(config('app_academic.setting.date_format_show')) : '';
             })
             ->addColumn('subject', static function ($query) {
-                return $query->subject->name . '<br>'. $query->teacher->name .' '. $query->teacher->last_name;
+                return $query->subject ? ($query->subject->name . '<br>'. $query->teacher->name .' '. $query->teacher->last_name) : '';
             })
             ->addColumn('teacher', static function ($query) {
-                return $query->teacher->name .' '. $query->teacher->last_name;
+                return $query->teacher ? $query->teacher->name .' '. $query->teacher->last_name : '';
             })
             ->addColumn('course_students', static function ($query) use ($route) {
                 // return $query->course_students;
