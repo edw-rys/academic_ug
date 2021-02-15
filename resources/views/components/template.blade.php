@@ -206,7 +206,7 @@
         <footer class="footer">
           <div class="container-fluid">
             <div class="copyright ml-auto">
-              2021, desarrollado por <a href="https://www.github.com/edw-rys" target="_blank">Edw Rys <i class="fa fa-anchor heart text-success"></i></a>
+              2021, desarrollado por <a href="https://www.github.com/edw-rys" target="_blank">Edw Rys <i class="fa fa-anchor heart text-success"></i> y Robeth Idrovo</a>
             </div>
           </div>
         </footer>
