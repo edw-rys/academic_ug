@@ -39,10 +39,12 @@
                     </div>
                 </div>
 
-                <div class="card-footer">
-                    <input class="btn btn-success" type="submit" value="Guardar">
+                <div class="flex" style="justify-content: space-between">
+                    <div class="card-footer">
+                        <input class="btn btn-success" type="submit" value="Guardar">
+                    </div>
+                    <span class="alert alert-warning">Los datos se agregarán al periodo actual</span>
                 </div>
-                <span class="alert alert-warning">Los datos se agregarán al periodo actual</span>
             </form>
         </div>
     </div>
