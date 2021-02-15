@@ -46,7 +46,8 @@ class StoreUserRequest extends FormRequest
             'last_name.required'           => 'Se require el apellido.',
             'last_name.string'           => 'El apellido debe ser textual.',
             'last_name.min'               => 'Escriba al menos 3 palabras en el apellido.',
-            'name.min'               => 'Escriba al menos 3 palabras en el nombre.'
+            'name.min'               => 'Escriba al menos 3 palabras en el nombre.',
+            'email.unique'           => 'Email ya existe'
         ];
     }
 }
