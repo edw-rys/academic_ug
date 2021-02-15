@@ -30,6 +30,7 @@ class StudentController extends Controller
     	// Show periods and class
     	// Get periods
     	$periods = Period::where('status', '!=' ,'deleted')
+            ->where('status', '!=' ,'pending')
     		->orderBy('id','desc')
     		->get();
 
