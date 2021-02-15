@@ -160,8 +160,8 @@ class PeriodController extends Controller
         }
         
         $item->name = $request->input('name');
-        $item->name = $request->input('start_date');
-        $item->name = $request->input('end_date');
+        $item->start_date = $request->input('start_date');
+        $item->end_date = $request->input('end_date');
         $item->save();
 
         return response()->json([
