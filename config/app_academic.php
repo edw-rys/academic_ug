@@ -124,6 +124,8 @@ return [
 		'url'		=> env('APP_API','https://api.atlantislow.com'),
 		'comment'	=> 'api/comment/analize',
         'timeout'	=> 10,
+		'user'		=> env('USER_API'),
+		'password'	=> env('PSSW_API'),
 	],
 	'views_title'	=> [
 		'dashboard' => 'Dashboard',

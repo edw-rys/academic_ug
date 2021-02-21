@@ -45,9 +45,9 @@ class ApiService
                     'Content-Type'  => 'application/json'
                 ],
                 'json'    => [
-                    'user'          => config('app_buro.otp.user'),
+                    'user'          => config('app_academic.api.user'),
                     'comment_id'    => $id,
-                    'password'      => config('app_buro.otp.password'),
+                    'password'      => config('app_academic.api.password'),
                 ]
             ]);
 
