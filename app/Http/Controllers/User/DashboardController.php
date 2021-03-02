@@ -138,6 +138,20 @@ class DashboardController extends Controller
                 array_push($data, $this->calcTotatPercentage($subjects, $period));
             }
         }
+        if(count($data) <=1){
+            array_unshift($data, [
+                'negative_percent'=> 0,
+                'neutral_percent' => 0,
+                'period'=> [
+                    'id'        => 0,
+                    'start_date'=> '',
+                    'end_date'  => '',
+                    'finalized' => '',
+                    'name'      => '',
+                ],
+                'positive_percent' => 0
+            ]);
+        }
         return $data;
     }
 
