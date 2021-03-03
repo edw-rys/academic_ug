@@ -53,7 +53,7 @@ if (! function_exists('dropdown_action')) {
 
         // IS STATUS...?
         // Yes
-        if ($status !== 'finalized') {
+        if ($status !== 'finalized' && $action == 'period') {
             if (have_permission('edit_'.$action,  auth()->user()->id)) {
                 $dropdown .= edit_action($route . '.edit', $id);
             }
@@ -73,7 +73,6 @@ if (! function_exists('dropdown_action')) {
                     $dropdown .= delete_action($route . '.destroy', $id, $action);
                 }
             }else{
-
                 if (!$protected && have_permission('delete_'.$action,  auth()->user()->id)) {
                     $dropdown .= delete_action($route . '.destroy', $id, $action);
                 }
