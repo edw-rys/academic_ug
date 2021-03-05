@@ -2,7 +2,16 @@
 
 namespace App\Exceptions;
 
+use Dotenv\Exception\ValidationException;
+use Illuminate\Auth\AuthenticationException;
+use Illuminate\Contracts\Support\Responsable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Routing\Router;
+use Illuminate\Session\TokenMismatchException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -50,6 +59,51 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Throwable $exception)
     {
-        return parent::render($request, $exception);
+        if (method_exists($exception, 'render') && $response = $exception->render($request)) {
+            return Router::toResponse($request, $response);
+        }
+        
+        if ($exception instanceof TokenMismatchException) {
+            return response()->view('errors.419', ['exception' => $exception],404);
+        }
+        /**
+         * App Exceptions
+         */
+
+        if ($exception instanceof Responsable) {
+            return $exception->toResponse($request);
+        }
+
+        if ($exception instanceof HttpResponseException) {
+            return $exception->getResponse();
+        }
+
+        if ($exception instanceof ValidationException) {
+            return $this->convertValidationExceptionToResponse($exception, $request);
+        }
+
+        /**
+         * Custom Exceptions
+         */
+
+        if ($exception instanceof MethodNotAllowedHttpException) {
+            return response()->view('errors.404', ['exception' => $exception],404);
+        }
+
+        if ($exception instanceof TokenMismatchException) {
+            return redirect()->back()->withInput($request->except('_token'))->with(['error' => trans('global.csrf_error')]);
+        }
+
+        if ($exception instanceof AuthenticationException) {
+            return $this->unauthenticated($request, $exception);
+        }
+
+        if ($exception instanceof ModelNotFoundException) {
+            return redirect()->back()->withErrors(['message' => trans('global.record_not_found')]);
+        }
+
+        if ($exception instanceof NotFoundHttpException) {
+            return response()->view('errors.404', ['exception' => $exception],404);
+        }
     }
 }
