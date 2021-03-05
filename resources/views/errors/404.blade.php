@@ -2,7 +2,7 @@
 
 @section('code', '404')
 
-@section('title', 'Demasiadas Solicitudes')
+@section('title', 'Página no encontrada')
 
 @section('content')
     <main>
@@ -272,7 +272,16 @@
                 <div class="col-md-6 align-self-center">
                     <h1>404</h1>
                     <h2>¡UH OH! Estas perdido.</h2>
-                    <p>La página que busca no existe. Cómo llegaste aquí es un misterio. Pero puede hacer clic en el botón de abajo para volver a la página de inicio.
+                    <p>
+                        <p>
+                            La página que busca no existe. 
+                        </p>
+                        <p>
+                            ¿Cómo llegaste aquí?, es un misterio. 
+                        </p>
+                        <p>
+                            Pero puede hacer clic en el botón de abajo para volver a la página de inicio.
+                        </p>
                     </p>
                     <a href="{{ route('auth.login.show')}}" class="btn green">Inicio</a>
                 </div>
