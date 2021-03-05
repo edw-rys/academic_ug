@@ -14,6 +14,10 @@ class LoginController extends Controller
 
     /**
      * Método de inicio de sesión
+     * Recibe las credenciales (email and password), verifica la existencia del correo en la BD
+     * Si existe y no esrtá activo retorna un error.
+     * Caso contrario intentará autenticarla verificando la contraseña, si todo es correcto redireccionará al dashboard.
+     * Si la contraseña es errónea redirecciona al login con el error
      * @param Request $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -40,7 +44,7 @@ class LoginController extends Controller
     }
 
     /**
-     * Elimina sesion
+     * Elimina sesion y redirecciona al login
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout(){

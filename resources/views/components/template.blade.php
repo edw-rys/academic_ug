@@ -234,6 +234,35 @@
     </div>
     {{--Ajax Modal Ends--}}
 
+
+    {{-- OTHER MODAL --}}
+    @if ($have_politice)
+      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Políticas y Privacidad</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ route('user.accept') }}" method="post">
+                @csrf
+                <p>{!! $policity ? $policity->text : '-' !!}</p>
+                <button class="btn btn-secondary" type="submit">Acepto</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+            </div>
+          </div>
+        </div>
+      </div>
+    @endif
+    <button style="display: none" type="button" class="btn btn-primary" id="clic-pol" data-toggle="modal" data-target="#exampleModal">
+      
+    </button>
+    
     <!-- General JS Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.nicescroll/3.7.6/jquery.nicescroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
@@ -269,6 +298,7 @@
         $(document).ready(function() {
             $('.select2').select2();
             $.toast = toastr;
+            $("#clic-pol").trigger("click");
 
         });
 

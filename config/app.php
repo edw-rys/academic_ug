@@ -177,6 +177,8 @@ return [
         
         App\Providers\HelperServiceProvider::class,
         Spatie\Permission\PermissionServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+
     ],
 
     /*

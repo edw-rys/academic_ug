@@ -26,9 +26,9 @@ class StoreUserRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'      => ['required', 'string', 'min:3'],
+            'name'      => ['required', 'string', 'min:5'],
             'email'     => ['required', 'string', 'email', Rule::unique('users', 'email')->where('status', 'active')],
-            'last_name' => ['required', 'string', 'min:3'],
+            'last_name' => ['required', 'string', 'min:5'],
         ];
     }
     /**

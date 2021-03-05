@@ -1,6 +1,10 @@
 @extends('components.template')
 @section('styles_cdn')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://afeld.github.io/emoji-css/emoji.css">
+<link rel="stylesheet" href="{{ asset('css/emoji.css')}}">
 @endsection
 @section('scripts_cdn')
 <script src="{{ asset('js/plugin/chart.js/chart.min.js') }}"></script>
@@ -38,8 +42,11 @@
                                     <div class="hidden">
                                         @dump($class_subject->comment)
                                     </div>
-                                        <textarea class="form-control" name="comment" placeholder="¿Què tal estuvo la clase?" style="min-height: 118px">{{ $class_subject->comment ? $class_subject->comment->comment : '' }}</textarea>
+                                        <textarea class="form-control" id="comment-{{$class_subject->id}}" name="comment" placeholder="¿Què tal estuvo la clase?" style="min-height: 118px">{{ $class_subject->comment ? $class_subject->comment->comment : '' }}</textarea>
                                         <p id="err-comment" class="hidden helper-block err-fields"></p>
+                                    </div>
+                                    <div>
+                                        @include('users.student.emojis')
                                     </div>
                                     <div class="flex flex-center">
                                         <button class="btn btn-primary" type="submit">Publicar</button>
@@ -89,7 +96,8 @@
             </div> 
         </div>
     </div>
-</div>    
+</div>  
+
 <script>
 
 
@@ -185,6 +193,9 @@
     });
 
 
-
+    var writeEmote = function (strEmote, n) {
+        var messageInput = document.getElementById('comment-'+n);
+        messageInput.value = messageInput.value += strEmote;
+    }
 </script>
 @endsection

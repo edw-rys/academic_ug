@@ -7,6 +7,7 @@ use App\Models\ClassSubject;
 use App\Models\CourseStudent;
 use App\Models\CourseSubject;
 use App\Models\Period;
+use App\Models\User;
 use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Gate;
 
@@ -188,5 +189,16 @@ class DashboardController extends Controller
             'negative_percent'  => $negative_percent,
             'neutral_percent'   => $neutra_percent
         ];
+    }
+    /**
+     * 
+     */
+    public function acceptPolitice()
+    {
+        $user_id = auth()->user()->id;
+        User::where('id', $user_id)->update([
+            'accept_policy' => 1
+        ]);
+        return redirect()->back();
     }
 }

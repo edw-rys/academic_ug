@@ -27,6 +27,7 @@ Route::middleware(['IsAuthenticated'])->group(function () {
     Route::get('user/dashboard', 'User\DashboardController@index')->name('user.dashboard.index');
     Route::get('user/dashboard/Statistics', 'User\DashboardController@getDataGraphic')->name('user.dashboard.Statistics');
     Route::get('user/logout', 'LoginController@logout')->name('user.logout');
+    Route::post('user/accept', 'User\DashboardController@acceptPolitice')->name('user.accept');
 });
 /*
 roles
