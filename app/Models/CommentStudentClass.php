@@ -16,4 +16,10 @@ class CommentStudentClass extends Model
     ];
 
     protected $table = 'comment_student_class';
+    public function student(){
+        return $this->belongsTo(User::class, 'student_id');
+    }
+    public function class_subject(){
+        return $this->belongsTo(ClassSubject::class, 'class_id');
+    }
 }

@@ -176,7 +176,7 @@ class CourseStudentController extends Controller
                 }
             }
         }
-        $size = count($data->class_subject) * count($data->course_students);
+        $size = count($data->class_subject) * (count($data->course_students)== 0? 1: count($data->course_students));
         $size = $size == 0? 1:$size;
         $negative_percent = ( $negative_percent/ $size)*100;
         $positive_percent = ( $positive_percent/ $size)*100;

@@ -111,6 +111,14 @@ return [
 		    			],
 		    		]
 				],
+				(object) [
+					'title'			=> 'Reportería',
+					'id'			=> 'xlvpacadadc',
+					'icon'			=> 'fas fa-fire',
+					'has_permissions' 	=> false,
+					'permissions' 	=> 'access_reporting',
+					'route'			=> 'admin.report.index',
+				],
 			],
 			
 		],

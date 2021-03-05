@@ -78,6 +78,7 @@
 
     </script>
     <script src="{{ asset('js/errors.js')}}"></script>
+    <script src="{{ asset('js/jquery.PrintArea.js') }}"></script>
 </head>
 
 <body>

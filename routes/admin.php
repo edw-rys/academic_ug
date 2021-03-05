@@ -48,5 +48,9 @@ Route::group([],function(){
     Route::resource('course_student', 'CourseStudentController');
     Route::get('course_student/statistics/{id}', 'CourseStudentController@statistics')->name('course_student.statistics');
     Route::get('course_student/students/{id}', 'CourseStudentController@showStudents')->name('course_student.students');
-
+    /**
+     * Reporting
+     */
+    Route::get('report','ReportController@index')->name('report.index');
+    Route::post('report/build','ReportController@buildReport')->name('report.build');
 });
