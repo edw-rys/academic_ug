@@ -63,14 +63,12 @@
         </div>
     </div>
     @if (isset($reports) && !empty($reports))
-        <div class="flex flex-center">
+        <div class="flex flex-center col-md-12">
             <button class="btn btn-sm btn-info" id="printButton" onclick="printPDF()">Imprimir</button>
         </div>
         <div id="table_print" class="col-md-12">
             <div class="flex flex-center">
-                <div style="background: #06418F">
-                    <img src="{{ asset('img/logo.png') }}" alt="navbar brand" class="navbar-brand" style="width: 180px">
-                </div>
+                <img src="{{ asset('img/login.png') }}" alt="navbar brand" class="navbar-brand" style="width: 180px">
             </div>
 
             @foreach ($reports as $report)    
