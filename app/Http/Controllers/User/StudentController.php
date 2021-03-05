@@ -129,6 +129,7 @@ class StudentController extends Controller
     	]);
     	$comment = CommentStudentClass::where('student_id', auth()->user()->id)
     		->where('class_id', $request->input('class_id'))
+			->where('status', 'active')
 			->first();
 
 		// Save comment
